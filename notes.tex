@@ -1,0 +1,470 @@
+\documentclass{article}
+\input{./note-setup-leftsidebox}
+
+\usepackage{setspace}
+\usepackage{faktor}
+\usepackage{etoolbox}
+\usepackage{tikz-cd}
+\apptocmd{\normalsize}{%
+  \setlength{\abovedisplayskip}{3pt}  
+  \setlength{\belowdisplayskip}{3pt}  
+  \setlength{\abovedisplayshortskip}{0pt} 
+  \setlength{\belowdisplayshortskip}{3pt} 
+  \setlength{\jot}{2pt}                
+}{}{}
+\DeclareMathOperator{\nil}{Nil}
+\DeclareMathOperator{\spec}{Spec}
+\DeclareMathOperator{\coim}{Coim}
+\DeclareMathOperator{\coker}{Coker}
+\DeclareMathOperator{\Hom}{Hom}
+\setstretch{1.8}
+\everymath{\displaystyle}
+\title{Notes of GTM-73}
+\date{\today}
+
+
+
+\begin{document}
+
+\maketitle
+\newpage
+\section{Introduction}
+\begin{definition}[Cartesian Product]
+    Let $\{A_i: i \in I\}$ be a family of sets indexed by a nonempty set $I$. The Cartesian product of the sets $A_{i}$ is the set of all functions $f:I\rightarrow \bigcup_{i\in I}A_{i}$ such that $f(i)\in A_{i}$ for all $i\in I$. It is denoted $\prod_{i\in I} A_{i}$.
+\end{definition}
+
+\textbf{The Axiom of Choice:} 
+The product of a family of nonempty sets indexed by a nonempty set is nonempty.
+
+There is another version of the Axiom of Choice.
+\begin{theorem}
+    Let $S$ be a set. A choice function for $S$ is a function $f$ from the set of all nonempty subsets of $S$ to $S$ such that $f(A)\in A$ for all $A\neq \emptyset $. Then the Axiom of Choice is equivalent to the statement thay every $S$ has a choice function.
+\end{theorem}
+
+\begin{proof}
+    If the A.C. holds, let $\mathcal{P}(S)^*$ be the set of all nonempty sets of $S$. Then consider the product $\prod_{A\in \mathcal{P}(S)^*}A$. Since $A$ is nonempty, $\prod_{A\in \mathcal{P}(S)^*}A$ is nonempty. Take $f\in \prod_{A\in \mathcal{P}(S)^*}A$. According to the definition of Cartesian product, $f(A)\in A$, which also satisfies the definition of choice function. Hence every nonempty set $S$ has a choice function.
+    
+    Suppose $\{X_i\}$ is a family of nonempty sets, let $S=\bigcup_{i\in I}X_i$. Then there is a choice function for $S$ such that $f(A)\in A$ for all $A\neq \emptyset$ and $A\subseteq S$. Note that $X_i$ is also a nonempty set of $S$. Therefore $f(X_i)\in X_i$ for all $i\in I$. Then define $g$ as $g(i)=f(X_i)$. It is clearly that $g\in \prod_{i\in I}X_i$. Hence $\prod_{i\in I}X_i$ is nonempty.
+\end{proof}
+
+
+\begin{definition}
+    A \textbf{partial ordering} on a set $A$ is a relation $R$ on $A\times A$ satisfies reflexive, transitive and antisymmetric. And $A$ with such a relation is called \textbf{partially ordered set}.
+\end{definition}
+
+Note that two gived elements of a partially ordered set need not to be comparable. If any two elements in a partially ordered set is comparable, we call the ordering a linear(or total or simple) ordering.
+
+Here I do not give the specific definition of \textbf{maximal, upper bound} and \textbf{greatest element}. We should note that a maximal element is different from a greatest element. A nonempty subset $B$ of $A$ that is linearly ordered is called a \textbf{chain} in $A$.
+
+\begin{lemma}[Zorn's lemma]
+    If $A$ is a nonempty partially ordered set such that every chain in $A$ has an upper bound in $A$, then $A$ contains a maximal element.
+\end{lemma}
+
+\begin{definition}[Well ordered]
+    If every nonempty subset of $A$ has a least element, then $A$ is said to be well ordered.
+\end{definition}
+
+Every well-ordered set is linearly ordered.
+
+
+
+\section{Ring}
+\begin{definition}[Prime ideal]
+    An ideal $P$ in a ring $R$ is said to be \textbf{prime} if $P\neq R$ and for any ideals $A,B$ in $R$, $AB \subseteq P$ implies $A\subseteq P$ or $B \subseteq P$.
+\end{definition}
+
+\begin{theorem}
+    If $P$ is an ideal in a ring $R$ such that $P\neq R$ and for all $a,b \in R$,
+        $ab \in P \Rightarrow a \in P $ or $ b \in P,$
+    then $P$ is prime. Conversely if $P$ is prime and $R$ is commutative, then $P$ satisfies the condition above.
+\end{theorem}
+
+Consider $S$ to be the ring of all $n \times n$ matrices over a division ring $D$, $n \geq 2$. Then $S$ has no zero divisors and $0$ is a prime ideal which does not satisfies the condition of the theorem above. Thus the commutativity is necessary for the converse of the theorem.
+
+\begin{theorem}
+    In a nonzero ring $R$ with identity, maximal (left) ideals always exist. In fact every (left) ideal in $R$ except $R$ itself is contained in a maximal (left) ideal.
+\end{theorem}
+\begin{proof}
+    The proof is application of Zorn's lemma. Note that set theoretic inclusion is a partial order.
+\end{proof}
+
+\begin{theorem}
+    If $R$ is a commutative ring such that $R^2=R$ (in particular if $R$ has an identity), then every maximal ideal $M$ in $R$ is prime.
+\end{theorem}
+
+This theorem provides a sufficient condition for a maximal ideal to be a prime ideal. However, the maximal ideals seem "better" than prime ideals. Is this theorem meaningful?
+
+\begin{theorem}
+    Let $M$ be an ideal in a ring $R$ with identity $1_R\neq 0$.
+
+    (1) If $M$ is maximal and $R$ is commutative, then the quotient ring $\faktor{R}{M}$ is a field.
+
+    (2) If the quotient ring $\faktor{R}{M}$ is a division ring, then $M$ is a maximal ideal.
+\end{theorem}
+Note the conditions for applying the theorem. (1) is false when $R$ does not have an identity. If $M$ is maximal and $R$ is not commutative, then $\faktor{R}{M}$ need not to be a division ring.
+
+\begin{definition}
+    An element $e$ in a ring $R$ is said to be \textbf{idempotent} if $e^2=e$. An element of the center of the ring $R$ is said to be \textbf{central}. Idempotent elements $e_1, e_{2}, \ldots, e_{n}$ is said to be \textbf{orthogonal} if $e_{i}e_{j}=0$ for $i\neq j$.
+\end{definition}
+
+\begin{theorem}(Pierce decomposition)
+    If $e$ is a central idempotent in a ring $R$ with identity, then $1_R-e$ is a central idempotent. $eR$ and $(1_R-e)R$ are ideals in $R$ such that $R=eR\times (1_R-e)R$.
+\end{theorem}
+This decomposition can be generalized to $R=\bigoplus_{i=1}^{n}\bigoplus_{j=1}^{n} e_{i}R e_{j} $ where $e_{1}, \ldots,e_{n}$ are idempotent and orthogonal and satisfy $e_{1}+e_{2}+ \cdots+e_{n}=1$.
+
+
+\begin{definition}
+    A nonempty subset $S$ of a ring $R$ is multiplicative provided that $a,b \in S$ implies $ab \in S$.
+\end{definition}
+
+\begin{theorem}
+    Let $S$ be a multiplicative subset of a commutative ring $R$. The relation defined on the set $R\times S$ by 
+    \begin{equation*}
+        (r,s)\thicksim (r',s') \quad\iff\quad s_{1}(rs'-r's)=0\quad \text{for some}\quad s_{1}\in S
+    \end{equation*}
+    is an equivalence relation. Furthermore if $R$ has no zero divisors and $0 \notin S$, then
+    \begin{equation*}
+        (r,s)\thicksim (r',s') \quad\iff\quad rs'-r's=0.
+    \end{equation*}
+\end{theorem}
+The $s_{1}$ in this relation aims to satisfy the transtive of equivalence relation.
+
+Let $S^{-1}R$ be the set of equivalence classes of $R\times S$ under the equivalence relation of Theorem 2.6, then we call the ring $S^{-1}R$ (it is easy to verify that $S^{-1}R$ is a ring) the \textbf{ring of quotients}. If $S$ is the set of all nonzero elements of an integral domain $R$, then $S^{-1}R$ is a field called the \textbf{quotient field of the integral domain} $R$ (simply quotient field). 
+
+\begin{theorem}
+    Let $S$ be a multiplicative subset of a commutative ring $R$ and let $T$ be any commutative ring with identity. If $f:R \rightarrow T$ is a homomorphism of rings such that $f(s)$ is a unit in $T$ for all $s \in S$, then there exists a unique homomorphism of rings $\overline{f}:S^{-1}R \rightarrow T$ such that $\overline{f}\varphi_S = f$. The ring $S^{-1}R$ is completely determined (up to isomorphim) by this property.
+\end{theorem}
+
+\begin{example}
+For instance, let $R$ be the integer ring $\mathbb{Z}$ and $S$ be the evens of $\mathbb{Z}$. Informally speaking, the ring of quotient $S^{-1}R=S^{-1}\mathbb{Z}$ is a ring such that every even is invertible in it. Take $X=\faktor{\mathbb{Z}[x]}{(2x-1)}$. Then in the ring $X$, $2n\equiv 1$ for any $n \in \mathbb{Z}$. Thus $X$ is also a ring such that every even in invertible. The theorem tells that there is a homomorphism between $S^{-1}\mathbb{Z}$ and $X$. Furthermore, the homomorphism is also an isomorphim, namely $S^{-1}\mathbb{Z} \simeq \faktor{\mathbb{Z}[x]}{(2x-1)}$.
+\end{example}
+
+\begin{theorem}
+    Let $S$ be a multiplicative subset of a commutative ring $R$ with identity. Then there is a one-to-one correspondence between the set of prime ideals of $R$ which are disjoint from $S$ and the set of prime ideals of $S^{-1}R$, given by $P\mapsto S^{-1}R$.
+\end{theorem}
+
+\begin{definition}
+    Let $R$ be a commutative ring with identity and $P$ is a prime ideal of $R$. Then $S=R-P$ is a multiplicative subset of $R$. The ring of quotients $S^{-1}R$ is called the \textbf{localization of $R$ at $P$} and is denoted as $R_P$. If $I$ is an ideal in $R$, then the ideal $S^{-1}I$ in $R_P$ is denoted as $I_P$.
+\end{definition}
+
+\begin{theorem}
+    Let $P$ be a prime ideal of a commutative ring $R$ with identity. Then 
+
+    (1) there is a one-to-one correspondence between the set of prime ideals of $R$ which are contained in $P$ and the set of prime ideals of $R_P$, given by $Q\mapsto Q_P$;
+
+    (2) the ideal $P_P$ in $R_P$ is the unique maximal ideal of $R_P$.
+\end{theorem}
+
+\begin{definition}
+    A \textbf{local ring} is a commutative ring with identity which has a unique maximal ideal.
+\end{definition}
+
+\begin{example}
+    If $p$ is prime and $n\geqslant 1$, then $\mathbb{Z}_{p^n}$ is a local ring with maximal ideal $(p)$.
+\end{example}
+\begin{proof}
+    A commutative ring with identity is a local ring if and only if all nonunits in the ring forms an ideal. Let $M$ be the set of all nonunits in $\mathbb{Z}_{p^n}$, then $M=\{m: p\mid m\}$ since all units in $\mathbb{Z}_{p^{n}}$ are relatively prime with $p$ and $p$ is prime. Thus $M=\mathbb{Z}_{p^n}p=(p)$. And $M=(p)$ is the unique maximal ideal.
+\end{proof}
+
+\begin{theorem}
+    If $R$ is a commutative ring with identity then the following conditions are equivalent.
+
+    (1) $R$ is a local ring;
+
+    (2) all nonunits of $R$ are contained in some ideal $M\neq R$;
+
+    (3) the nonunits of $R$ form an ideal.
+\end{theorem}
+
+\begin{theorem}
+    In a commutative ring $R$ with identity the following conditions are equivalent:
+
+    (1) $R$ has unique prime ideal;
+
+    (2) every nonunit is nilpotent;
+
+    (3) $R$ has minimal prime ideal which contains all zero divisors, and all nonunits of $R$ are zero divisors.
+\end{theorem}
+We need a lemma to prove this theorem.
+\begin{lemma}
+    The set of all nilpotents in $R$ equals to the intersection of all primes ideals of $R$, namely $\nil (R)=\bigcap_{P \in \spec(R)}P$.
+\end{lemma}
+The proof of this lemma and theorem can be found in the note of exercises.
+
+
+
+\section{Module}
+\begin{theorem}
+    Let $R$ be a ring and $A,A_{1},A_{2}, \ldots,A_{n}$ $R$-modules. Then $A\simeq \bigoplus_{i=1}^n A_{i}$ if and only if for each $i=1,2, \ldots,n$ there are $R$-modules homomorphism $\pi_i:A\to A_{i}$ and $\iota_i:A_{i}\to A$ such that
+
+    (i) $\pi_i \iota_i = 1_{A_{i}}$ for $i=1,2, \ldots,n$;
+
+    (ii) $\pi_{j} \iota_{i}=0$ for $i\neq j$;
+
+    (iii) $\iota_{1}\pi_{1}+\iota_{2}\pi_{2}+ \cdots+\iota_{n}\pi_n=1_A$.
+\end{theorem}
+This actually provides a necessary and sufficient condition for the direct sum of $A_{1},A_{2}, \ldots,A_{n}$.
+
+\begin{definition}
+    A pair of module homomorphism, $A\xrightarrow{f}B\xrightarrow{g}C$, is said to be exact at $B$ provided that $\operatorname{Im}f=\operatorname{ker}g$. A finite sequence of module homomorphisms, $A_{0}\xrightarrow{f_{1}}A_{1}\xrightarrow{f_{2}}A_{2}\xrightarrow{f_{3}}\cdots\xrightarrow{f_{n-1}}A_{n-1}\xrightarrow{f_{n}}A_{n}$, is exact provided $\operatorname{Im}f_{i}=\operatorname{ker}f_{i+1} $ for $i=1,2, \ldots,n-1$. An infinite sequence of module homomorphisms, $\cdots\xrightarrow{f_{i-1}}A_{i-1}\xrightarrow{f_{i}}A_{i}\xrightarrow{f_{i+1}}A_{i+1}\xrightarrow{f_{i+2}}\cdots$ is exact provided $\operatorname{Im} f_{i}=\operatorname{ker} f_{i+1}$ for all $i \in \mathbb{Z}$.
+\end{definition}
+
+\begin{definition}
+    If $f:A \to B$ is a module homomorphism, then $\faktor{A}{\operatorname{ker} f}$ is called the \textbf{coimage} of $f$, $\faktor{B}{\operatorname{Im} f}$ is called \textbf{cokernel} of $f$, denoted as $\coim f$ and $\coker f$ respectively.
+\end{definition}
+
+\begin{theorem}
+    Let $R$ be a ring and $0\to A_{1}\xrightarrow{f}B\xrightarrow{g}A_{2}\to 0$ a short exact sequence of $R$-module homomorphisms. Then the short exact sequence is called \textbf{split} if it satisfies one of the following conditions:
+
+    (1) there is an $R$-module homomorphism $h:A_{2}\to B$ such that $gh=\operatorname{id}_{A_{2}}$;
+
+    (2) there is an $R$-module homomorphism $k:B\to A_{1}$ such that $fk=\operatorname{id}_{A_{1}}$;
+
+    (3) the given sequence is equivalent to the short exact sequence $0\to A_{1}\xrightarrow{\iota_{1}}A_{1}\oplus A_{2}\xrightarrow{\pi_{2}}A_{2}\to 0$; in particular $B\simeq A_{1}\oplus A_{2}$.
+\end{theorem}
+
+\begin{theorem}
+    Let $R$ be a ring with identity. $F$ is called \textbf{free $R$-module} if $F$ satisfies one of the following conditions:
+
+    (1) $F$ has a nonempty basis;
+
+    (2) $F$ is the internal direct sum of a family of cyclic $R$-modules, each of which is isomorphic as a left $R$-module to $R$;
+
+    (3) $F$ is $R$-module isomorphic to a direct sum of copies of the left $R$-module R;
+
+    (4) there exists a nonempyt set $X$ and a function $\iota:X \to F$ with the following property: given any unitary $R$-module $A$ and function $f:X\to A$, there exists a unique $R$-module homomorphism $\bar{f}:F\to A$ such that $\bar{f}\iota=f$. In other words, $F$ is a free object in the category of unitary $R$-modules.
+\end{theorem}
+
+\begin{corollary}
+    Every (unitary) module $A$ over a ring $R$ (with identity) is the homomorphic image of a free $R$-module $F$. If $A$ is finitely generated, then $F$ may be chosen to be finitely generated.
+\end{corollary}
+
+\begin{example}
+    Take $R=\mathbb{Z}$ and free $R$-module $F=R^2=\mathbb{Z}^2=\{(a,b): a,b \in \mathbb{Z}\}$. 
+    
+    Then $F$ has a basis $X=\{e_{1},e_{2}\}$, where $e_{1}=(1,0)$ and $e_{2}=(0,1)$. 
+    
+    Let $M_{1}=\mathbb{Z}e_{1}=\{(a,0):a \in \mathbb{Z}\}$, $M_{2}=\mathbb{Z}e_{2}=\{(0,b):b \in \mathbb{Z}\}$. Clearly $M_{1}$ and $M_{2}$ are cyclic $R$-modules and $M_{1} \simeq \mathbb{Z}$, $M_{2} \simeq \mathbb{Z}$. Since $M_{1}\cap M_{2}=\{0\}$ and $M_{1}+M_{2}=F$, then $F=M_{1}\oplus M_{2}$.
+
+    Define $\iota: X \to \mathbb{Z}^2$ such that $\iota(x_{1})=(1,0)$ and $\iota(x_{2})=(0,1)$. Given an arbitrary $\mathbb{Z}-$module $A$ and a function $f:X \to A$, suppose $f(x_{1})=a_{1}$ and $f(x_{2})=a_{2}$. Define $\bar{f}:\mathbb{Z}^2\to A$ such that $\bar{f}(m,n)=ma_{1}+na_{2}$ where $m,n \in \mathbb{Z}$. It is easy to verfiy that $\bar{f}\iota=f$ and since the representation in terms of a basis is unique, the homomorphism $\bar{f}$ is uniquely determined.
+\end{example}
+
+Although $F$ may have a basis $X$ who has infinite elements, every element in $F$ can be represented as a finite sum of finite elements in $X$ since $F$ is isomorphic to a direct sum (coproduct) of copies of the modules.
+
+Generally, we can define free module on any ring which may not have an identity. 
+\begin{definition}
+    Let $R$ be any ring and $X$ a nonempty set. An $R$-module $F$ is called a free module on $X$ if $F$ is a free object on $X$ in the category of all left $R$-modules.
+\end{definition}
+
+However, this defintion leads to a "bad" result.
+\begin{example}
+    Let $R$ be a ring with identity. Then $R$ is not a free module on any set in the category of all $R$-modules (as defined in definition 3.3).
+\end{example}
+\begin{proof}
+    Let $A$ be a nonzero Abelian group with $R$-module structure $ra=0$ for any $r \in R$ and $a \in A$. Define $g:X\to A$ with $g(x_{0})=a_{0}\neq 0$. Then there exists a unique homomorphism $f:R\to A$ such that $f\iota=g$. For any $r$ in $R$, $f(r)=f(r\cdot 1_R)=rf(1_R)=0$ since $f(1_R)\in A$. Hence $g$ is a zero map, which contradicts to $g(x_{0})=a_{0}\neq 0$.
+\end{proof}
+If free module is defined as theorem 3.3 where the ring $R$ has an identity and $F$ is a unitary $R$-module, $R$ itself could be seen as a left free $R$-module with rank $1$.
+
+\begin{definition}
+    A module $P$ over a ring $R$ is said to be \textbf{projective} if given any diagram of $R$-modules homomorphisms
+    $$\begin{tikzcd}
+     & P\arrow[d,"f"] & \\
+     A \arrow[r, "g"] & B \arrow[r]& 0\\ 
+    \end{tikzcd}$$
+    with bottom row exact, there exists an $R$-module homomorphism $h:P\to A$ such that the diagram 
+    $$\begin{tikzcd}
+                 & P \arrow[d, "f"] \arrow[ld, "h"'] &   \\
+A \arrow[r, "g"] & B \arrow[r]                       & 0
+\end{tikzcd}$$
+is commutative (that is, $gh=f$).
+\end{definition}
+
+\begin{theorem}
+    Every free module $F$ over a ring $R$ with identity is projective.
+\end{theorem}
+\begin{example}
+    $R=\mathbb{Z}_{6}$, then $\mathbb{Z}_{3}$ and $\mathbb{Z}_{2}$are $\mathbb{Z}_{6}-$modules and it is easy to know that $\mathbb{Z}_{6}\simeq \mathbb{Z}_{2}\oplus \mathbb{Z}_{3}$. Hence both $\mathbb{Z}_{2}$ and $\mathbb{Z}_{3}$ are projective $\mathbb{Z}_{6}-$modules but are not free $\mathbb{Z}_{6}-$modules since there are zero divisors in $\mathbb{Z}_{6}$.
+\end{example}
+
+\begin{theorem}
+    Let $R$ be ar ring. The following conditions on an $R$-module $P$ are equivalent.
+
+    (1) $P$ is projective;
+
+    (2) every short exact sequence $0\to A\xrightarrow{f}B\xrightarrow{g}P\to 0$ is split exact (hence $B\simeq A \oplus P$);
+
+    (3) there is a free module $F$ and an $R$-module $K$ such that $F\simeq K\oplus P$.
+\end{theorem}
+
+\begin{definition}
+    A module $J$ over a ring $R$ is said to be \textbf{injective} if given any diagram of $R$-module homomorphisms 
+    $$\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "g"] \arrow[d, "f"'] & B \\
+            & J                                &  
+\end{tikzcd}$$
+with top row exact, there exists an $R$-module homomorphism $h:B\to J$ such that the diagram
+$$\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "g"] \arrow[d, "f"'] & B \arrow[ld, "h"] \\
+            & J                                &                  
+\end{tikzcd}$$
+is commutaitve (that is, $hg=f$).
+\end{definition}
+
+\begin{theorem}
+    Let $R$ be a ring. 
+
+    (1) A direct sum of $R$-modules $\sum_{i\in I}P_i$ is projective iff each $P_i$ is projective;
+
+    (2) A direct product of $R$-modules $\prod_{i\in I}J_{i}$ is injective iff each $J_{i}$ is injective.
+\end{theorem}
+
+\begin{theorem}[Baer Criterion]
+    Let $R$ be a ring with identity. A unitary $R$-module $J$ is injective iff for every left ideal $L$ of $R$, any $R$-module homomorphism $L\to J$ may be extended to an $R$-module homomorphism $R\to J$.
+\end{theorem}
+
+\begin{theorem}
+    Let $R$ be a ring with identity. The following conditions on a unitary $R$-module $J$ are equivalent.
+
+    (1) $J$ is injective;
+
+    (2) every short exact sequence $0\to J\xrightarrow{f}B\xrightarrow{g}C\to 0$ is split exact (hence $B\simeq J\oplus C$);
+
+    (3) $J$ is a direct summand of any module $B$ of which it is a submodule.
+\end{theorem}
+\begin{proof}
+    The detailed proof can be found in textbook.
+\end{proof}
+
+\begin{remark}
+    (1) This theorem still holds without the identity. However, since both Baer's criterion and the existence of injective embeddings require the ring to be unital ring and the module to be unitary, the proof of theorem 3.9 is provided only for this case to ensure simplicity and utility.
+
+    (2) Note that theorem 3.6(3) states that a projective module is a direct summand of some free module, whereas theorem 3.9(3) claims that an injective module is a direct summand of any module containing it. 
+\end{remark}
+
+\begin{example}
+    $\mathbb{Q}$ is not a projective $\mathbb{Z}$-module.
+\end{example}
+\begin{proof}
+    
+\end{proof}
+Is $\mathbb{Q}$ a projective $\mathbb{Q}$-module? The answer is yes since it is actually a vector space over a division ring, hence a free module.
+
+Projective and injective modules are dual to each other. Is there, then, a concept dual to free modules? The following theorem addresses this question.
+
+\begin{theorem}
+    An $R$-module $F$ is co-free on a set $X$ if there exists a function $\iota:F\to X$ such that for any $R$-module $A$ and function $f:A\to X$, there exists a unique module homomorphism $\bar{f}:A\to F$ such that $\iota \bar{f}=f$. Then for any set $X$ with $\left\lvert X \right\rvert \geqslant 2$ no such $R$-module $F$ exists. If $\left\lvert X \right\rvert =1$, then $0$ is the only co-free module.
+\end{theorem}
+\begin{proof}
+    Assume $F$ is co-free on a set $X$ with $\left\lvert X \right\rvert \geqslant 2$. Since $\bar{f}:A\to F$ is a homomorphism, then $\iota\bar{f}(0_A)=\iota(0_F)=f(0_A)$. Note that $f$ is an arbitrary function, then $\forall x \in X$, there exists $f:A\to X$ such that $f(0_A)=x$. But the function $\iota$ is fixed whence $\iota(0_F)$ is fixed. That is a contradiction. 
+    
+    If $\left\lvert X \right\rvert =1$, take $A=F$ then $\iota(k)=x, f(a)=x, \forall a \in A, k \in F$. Then for any homomorphism $\bar{f}:F\to F$, $\iota\bar{f}=f$ holds. In particular, when $\bar{f}=\operatorname{id}_{F}, 0$, $\iota\bar{f}=f$. Since $\bar{f}$ is unique, then $\operatorname{id}_{F}(k)=0(k)=0\Rightarrow k=0, \forall k \in F$. Hence $F$ is $0$ module.
+\end{proof}
+
+If $A,B$ are modules over a ring $R$, then $\Hom_{R}(A, B)$ is the set of all $R$-modules homomorphisms $f:A\to B$ and $\Hom_{R}(A, B)$ is an abelian group under addition and this addition is distributive with respect to composition of functions.
+
+\begin{theorem}
+    Let $A,B,C,D$ be modules over a ring $R$ and $\varphi:C\to A$ and $\psi:B\to D$ $R$-module homomorphism. Then the map $\theta:\Hom_{R}(A, B)\to \Hom_{R}(C, D)$ given by $f\mapsto \psi f \varphi$ is a homomorphism of abelian groups.
+\end{theorem}
+The map $\theta$ is usually denoted $\Hom_{}(\varphi, \psi)$ and called the homomorphism induced by $\varphi$ and $\psi$.
+
+\begin{theorem}
+    Let $R$ be a ring. $0\to A\xrightarrow{\varphi}B\xrightarrow{\psi}C$ is an exact sequence of $R$-modules iff for every $R$-module $D$
+    $$0\to \Hom_{R}(D, A)\xrightarrow{\bar{\varphi}}\Hom_{R}(D, B)\xrightarrow{\bar{\psi}}\Hom_{R}(D, C)$$
+    is an exact sequence of abelian groups.
+\end{theorem}
+\begin{theorem}
+    Let $R$ be a ring. $A\xrightarrow{\theta}B\xrightarrow{\zeta}C\to 0$ is an exact sequence of $R$-modules iff for every $R$-module $D$
+    $$0\to \Hom_{R}(C, D)\xrightarrow{\bar{\zeta}}\Hom_{R}(B, D)\xrightarrow{\bar{\theta}}\Hom_{R}(A, D)$$
+    is an exact sequence of abelian groups.
+\end{theorem}
+
+By preceding results we say $\Hom_{R}(A, B)$ to be \textbf{left exact}. It is not true in general that a short sequence $0\to A\to B\to C\to 0$ induces a short exact sequence $0\to \Hom_{R}(D, A)\to \Hom_{R}(D, B)\to \Hom_{R}(D, C)\to 0$ or $0\to \Hom_{R}(C, D)\to \Hom_{R}(B, D)\to \Hom_{R}(A, D)\to 0$.
+
+\begin{example}
+    Consider $0\to \mathbb{Z}\xrightarrow{f}\mathbb{Z}\xrightarrow{g}\faktor{\mathbb{Z}}{2\mathbb{Z}}\to 0$ where $f(x)=2x$ and $g$ is canonical projection. 
+    
+    Take $D=\faktor{\mathbb{Z}}{2\mathbb{Z}}$, then $\Hom_{}(D, \faktor{\mathbb{Z}}{2\mathbb{Z}})\simeq \faktor{\mathbb{Z}}{2\mathbb{Z}}$ since homomorphism maps $0$ to $0$, and $\Hom_{}(D, \mathbb{Z})$ is zero since the order of the elements in $D$ is $2$ while there is no element in $\mathbb{Z}$ with order $2$. The induced sequence $0\to 0\xrightarrow{\bar{f}} 0\xrightarrow{\bar{g}}\faktor{\mathbb{Z}}{2\mathbb{Z}}\to 0$ is not an exact sequence since the map $k$ is not an epimorphism.
+
+    Take $D=\mathbb{Z}$, then $\Hom_{}(\mathbb{Z}, D)\simeq \mathbb{Z}$ since the homomorphism is determined by the identity in $\mathbb{Z}$, and $\Hom_{}(\faktor{\mathbb{Z}}{2\mathbb{Z}}, D)$ is zero. The induced sequence $0\to 0\xrightarrow{\bar{g}}\mathbb{Z}\xrightarrow{\bar{f}}\mathbb{Z}\to 0$ is not an exact sequence. In fact, $\bar{f}(\varphi)=\varphi f$ where $\varphi \in \Hom_{}(\mathbb{Z}, \mathbb{Z})$ and $f(x)=2x$, hence $\bar{f}$ could not be an epimorphism.
+\end{example}
+
+However, in some cases the exactness still holds in the induced sequence.
+
+\begin{theorem}
+    The following conditions on a module $P$ over a ring $R$ are equivalent.
+
+    (1) $P$ is projective;
+
+    (2) if $\psi:B\to C$ is any $R$-module epimorphism, then $\bar{\psi}:\Hom_{R}(P, B)\to \Hom_{R}(P, C)$ is an epimorphism of abelian group;
+
+    (3) if $0\to A\xrightarrow{\varphi}B\xrightarrow{\psi}C\to 0$ is any short exact sequence of $R$-modules, then $0\to \Hom_{R}(P, A)\xrightarrow{\bar{\varphi}} \Hom_{R}(P, C)\xrightarrow{\bar{\psi}}\Hom_{R}(P, C)\to 0$ is an exact sequence of abelian groups.
+\end{theorem}
+
+\begin{theorem}
+    The following conditions on a module $J$ over a ring $R$ are equivalent.
+
+    (1) $J$ is injective;
+
+    (2) if $\theta:A\to B$ is any $R$-module monomorphism, then $\bar{\theta}:\Hom_{R}(B, J)\to \Hom_{R}(A, J)$ is an epimorphism of abelian group;
+
+    (3) if $0\to A\xrightarrow{\theta}B\xrightarrow{\zeta}C\to 0$ is any short exact sequence of $R$-modules, then $0\to \Hom_{R}(C, J)\xrightarrow{\bar{\zeta}} \Hom_{R}(B, J)\xrightarrow{\bar{\theta}}\Hom_{R}(A, J)\to 0$ is an exact sequence of abelian groups.
+\end{theorem}
+
+\begin{corollary}
+    The following conditions on modules over a ring $R$ are equivalent.
+
+    (1) $0\to A\xrightarrow{\varphi}B\xrightarrow{\psi}C\to 0$ is a split exact sequence of $R$-module;
+
+    (2) $0\to \Hom_{R}(D, A)\xrightarrow{\bar{\varphi}} \Hom_{R}(D, C)\xrightarrow{\bar{\psi}}\Hom_{R}(D, C)\to 0$ is a split exact sequence of abelian groups for every $R$-module $D$;
+
+    (3) $0\to \Hom_{R}(C, D)\xrightarrow{\bar{\psi}} \Hom_{R}(B, D)\xrightarrow{\bar{\varphi}}\Hom_{R}(A, D)\to 0$ is a split exact sequence of abelian groups for every $R$-module $D$.
+\end{corollary}
+
+Intuitively, $\Hom$ functors are only left-exact and lose surjectivity at the right end. A projective module "repairs" this for the covariant functor via its lifting property, while an injective module "repairs" this for the contravariant functor (which reverses arrows) via its extending property.
+
+\begin{theorem}
+    Let $A,B,\{A_{i}:i \in I\}$ and $\{B_{j}:j \in J\}$ be modules over a ring $R$. Then there are isomorphims of abelian groups:
+
+    (1) $\Hom_{R}(\bigoplus_{i \in I}A_{i}, B)\simeq \prod_{i \in I} \Hom_{R}(A_{i}, B)  $;
+
+    (2) $\Hom_{R}(A, \prod_{j \in J}B_{j}  )\simeq \prod_{j \in J}\Hom_{R}(A, B_{j})  $.
+\end{theorem}
+
+\begin{example}
+    Let $R^n$ and $R^m$ be free modules of rank $n$ and $m$ respectively, then $R^n = \bigoplus_{j=1}^n R$ and $R^m = \prod_{i=1}^m R$ since products and coproducts are isomorphic under finite modules. By the theorem above, $$\Hom_R\left( \bigoplus_{j=1}^n R, R^m \right) \simeq \prod_{j=1}^n \Hom_R(R, R^m)\simeq \prod_{j=1}^{n} \prod_{i=1}^{m} \Hom_{R}(R, R) \simeq  \prod_{j=1}^{n} \left( \prod_{i=1}^{m} R\right). $$ This corresponds to the matrix of $m \times n$ on $R$.
+\end{example}
+
+Since $\Hom_{R}(A, B)$ forms an abelian group not a module, we need consider possible module structures on it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
