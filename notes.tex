@@ -5,6 +5,7 @@
 \usepackage{faktor}
 \usepackage{etoolbox}
 \usepackage{tikz-cd}
+\usepackage{tensor}
 \apptocmd{\normalsize}{%
   \setlength{\abovedisplayskip}{3pt}  
   \setlength{\belowdisplayskip}{3pt}  
@@ -19,7 +20,7 @@
 \DeclareMathOperator{\Hom}{Hom}
 \setstretch{1.8}
 \everymath{\displaystyle}
-\title{Notes of GTM-73}
+\title{Notes on GTM-73}
 \date{\today}
 
 
@@ -383,34 +384,15 @@ By preceding results we say $\Hom_{R}(A, B)$ to be \textbf{left exact}. It is no
 \begin{example}
     Consider $0\to \mathbb{Z}\xrightarrow{f}\mathbb{Z}\xrightarrow{g}\faktor{\mathbb{Z}}{2\mathbb{Z}}\to 0$ where $f(x)=2x$ and $g$ is canonical projection. 
     
-    Take $D=\faktor{\mathbb{Z}}{2\mathbb{Z}}$, then $\Hom_{}(D, \faktor{\mathbb{Z}}{2\mathbb{Z}})\simeq \faktor{\mathbb{Z}}{2\mathbb{Z}}$ since homomorphism maps $0$ to $0$, and $\Hom_{}(D, \mathbb{Z})$ is zero since the order of the elements in $D$ is $2$ while there is no element in $\mathbb{Z}$ with order $2$. The induced sequence $0\to 0\xrightarrow{\bar{f}} 0\xrightarrow{\bar{g}}\faktor{\mathbb{Z}}{2\mathbb{Z}}\to 0$ is not an exact sequence since the map $k$ is not an epimorphism.
+    Take $D=\faktor{\mathbb{Z}}{2\mathbb{Z}}$, then $\Hom_{}(D, \faktor{\mathbb{Z}}{2\mathbb{Z}})\simeq \faktor{\mathbb{Z}}{2\mathbb{Z}}$ since homomorphism maps $0$ to $0$, and $\Hom_{}(D, \mathbb{Z})$ is zero since the order of the elements in $D$ is $2$ while there is no element in $\mathbb{Z}$ with order $2$. The induced sequence $0\to 0\xrightarrow{\bar{f}} 0\xrightarrow{\bar{g}}\faktor{\mathbb{Z}}{2\mathbb{Z}}\to 0$ is not an exact sequence since the map $\bar{g}$ is not an epimorphism.
 
     Take $D=\mathbb{Z}$, then $\Hom_{}(\mathbb{Z}, D)\simeq \mathbb{Z}$ since the homomorphism is determined by the identity in $\mathbb{Z}$, and $\Hom_{}(\faktor{\mathbb{Z}}{2\mathbb{Z}}, D)$ is zero. The induced sequence $0\to 0\xrightarrow{\bar{g}}\mathbb{Z}\xrightarrow{\bar{f}}\mathbb{Z}\to 0$ is not an exact sequence. In fact, $\bar{f}(\varphi)=\varphi f$ where $\varphi \in \Hom_{}(\mathbb{Z}, \mathbb{Z})$ and $f(x)=2x$, hence $\bar{f}$ could not be an epimorphism.
 \end{example}
 
 However, in some cases the exactness still holds in the induced sequence.
 
-\begin{theorem}
-    The following conditions on a module $P$ over a ring $R$ are equivalent.
-
-    (1) $P$ is projective;
-
-    (2) if $\psi:B\to C$ is any $R$-module epimorphism, then $\bar{\psi}:\Hom_{R}(P, B)\to \Hom_{R}(P, C)$ is an epimorphism of abelian group;
-
-    (3) if $0\to A\xrightarrow{\varphi}B\xrightarrow{\psi}C\to 0$ is any short exact sequence of $R$-modules, then $0\to \Hom_{R}(P, A)\xrightarrow{\bar{\varphi}} \Hom_{R}(P, C)\xrightarrow{\bar{\psi}}\Hom_{R}(P, C)\to 0$ is an exact sequence of abelian groups.
-\end{theorem}
 
 \begin{theorem}
-    The following conditions on a module $J$ over a ring $R$ are equivalent.
-
-    (1) $J$ is injective;
-
-    (2) if $\theta:A\to B$ is any $R$-module monomorphism, then $\bar{\theta}:\Hom_{R}(B, J)\to \Hom_{R}(A, J)$ is an epimorphism of abelian group;
-
-    (3) if $0\to A\xrightarrow{\theta}B\xrightarrow{\zeta}C\to 0$ is any short exact sequence of $R$-modules, then $0\to \Hom_{R}(C, J)\xrightarrow{\bar{\zeta}} \Hom_{R}(B, J)\xrightarrow{\bar{\theta}}\Hom_{R}(A, J)\to 0$ is an exact sequence of abelian groups.
-\end{theorem}
-
-\begin{corollary}
     The following conditions on modules over a ring $R$ are equivalent.
 
     (1) $0\to A\xrightarrow{\varphi}B\xrightarrow{\psi}C\to 0$ is a split exact sequence of $R$-module;
@@ -418,7 +400,28 @@ However, in some cases the exactness still holds in the induced sequence.
     (2) $0\to \Hom_{R}(D, A)\xrightarrow{\bar{\varphi}} \Hom_{R}(D, C)\xrightarrow{\bar{\psi}}\Hom_{R}(D, C)\to 0$ is a split exact sequence of abelian groups for every $R$-module $D$;
 
     (3) $0\to \Hom_{R}(C, D)\xrightarrow{\bar{\psi}} \Hom_{R}(B, D)\xrightarrow{\bar{\varphi}}\Hom_{R}(A, D)\to 0$ is a split exact sequence of abelian groups for every $R$-module $D$.
+\end{theorem}
+
+\begin{corollary}
+    The following conditions on a module $P$ over a ring $R$ are equivalent.
+
+    (1) $P$ is projective;
+
+    (2) if $\psi:B\to C$ is any $R$-module epimorphism, then $\bar{\psi}:\Hom_{R}(P, B)\to \Hom_{R}(P, C)$ is an epimorphism of abelian group;
+
+    (3) if $0\to A\xrightarrow{\varphi}B\xrightarrow{\psi}C\to 0$ is any short exact sequence of $R$-modules, then $0\to \Hom_{R}(P, A)\xrightarrow{\bar{\varphi}} \Hom_{R}(P, C)\xrightarrow{\bar{\psi}}\Hom_{R}(P, C)\to 0$ is an exact sequence of abelian groups.
 \end{corollary}
+
+\begin{corollary}
+    The following conditions on a module $J$ over a ring $R$ are equivalent.
+
+    (1) $J$ is injective;
+
+    (2) if $\theta:A\to B$ is any $R$-module monomorphism, then $\bar{\theta}:\Hom_{R}(B, J)\to \Hom_{R}(A, J)$ is an epimorphism of abelian group;
+
+    (3) if $0\to A\xrightarrow{\theta}B\xrightarrow{\zeta}C\to 0$ is any short exact sequence of $R$-modules, then $0\to \Hom_{R}(C, J)\xrightarrow{\bar{\zeta}} \Hom_{R}(B, J)\xrightarrow{\bar{\theta}}\Hom_{R}(A, J)\to 0$ is an exact sequence of abelian groups.
+\end{corollary}
+
 
 Intuitively, $\Hom$ functors are only left-exact and lose surjectivity at the right end. A projective module "repairs" this for the covariant functor via its lifting property, while an injective module "repairs" this for the contravariant functor (which reverses arrows) via its extending property.
 
@@ -436,9 +439,50 @@ Intuitively, $\Hom$ functors are only left-exact and lose surjectivity at the ri
 
 Since $\Hom_{R}(A, B)$ forms an abelian group not a module, we need consider possible module structures on it.
 
+Let $R$ and $S$ be rings. An abelian group $A$ is said to be an $R$-$S$ \textbf{bimodule} provided that $A$ is both a left $R$-module and a right $S$-module and $r(as)=(ra)s$ for all $a \in A, r\in R, s \in S$, denoted as $\tensor[_R]{A}{_S}$.
+
+\begin{theorem}
+    Let $R$ and $S$ be rings and let $\tensor[_R]{A}{}, \tensor[_R]{B}{_S}, \tensor[_R]{C}{_S}, \tensor[_R]{D}{}$ be (bi)modules as indicated.
+
+    (i) $\Hom_{R}(A, B)$ is a right $S$-module, with the action of $S$ given by $(fs)(a)=(f(a))s,s \in S, a \in A, f \in \Hom_{R}(A, B)$.
+
+    (ii) If $\varphi:A\to A'$ is a homomorphism of left $R$-modules, then the induced map $\bar{\varphi}:\Hom_{R}(A', B)\to \Hom_{R}(A, B)$ is a homomorphism of right $S$-modules.
+
+    (iii) $\Hom_{R}(C, D)$  is a left $S$-module, with the action of $S$ given by $(sg)(c)=g(cs), s \in S, c \in C, g \in \Hom_{R}(C, D)$.
+
+    (iv) If $\psi:D\to D'$ is a homomorphism of left $R$-module, then $\bar{\psi}:\Hom_{R}(C, D)\to \Hom_{R}(C, D')$ is a homomorphism of left $S$-modules.
+\end{theorem}
+
+\begin{theorem}
+    If $A$ is a unitary left module over a ring $R$ with identity, then there is an isomorphism of left $R$-modules $A \simeq \Hom_{R}(R, A)$.
+\end{theorem}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\begin{theorem}
+    Let $R$ be a ring, $A$ and $\{A_{i}:i \in I\}$ right $R$-modules, $B$ and $\{B_{j}:j \in J\}$ left $R$-modules. Then there are group isomorphism.
+
+    $$\begin{aligned}
+    (\bigoplus_{i \in I} A_{i}) \otimes_R B &\simeq \bigoplus_{i \in I}(A_{i}\otimes_R B); \\
+    A\otimes_R (\bigoplus_{j \in J} B_{j}) &\simeq \bigoplus_{j \in J} (A\otimes_R B_{j}).
+    \end{aligned}$$
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+% ceshigengxin
 
 
 
