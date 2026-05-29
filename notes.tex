@@ -68,7 +68,7 @@ Here I do not give the specific definition of \textbf{maximal, upper bound} and 
 Every well-ordered set is linearly ordered.
 
 
-
+\newpage
 \section{Ring}
 \begin{definition}[Prime ideal]
     An ideal $P$ in a ring $R$ is said to be \textbf{prime} if $P\neq R$ and for any ideals $A,B$ in $R$, $AB \subseteq P$ implies $A\subseteq P$ or $B \subseteq P$.
@@ -190,10 +190,10 @@ We need a lemma to prove this theorem.
 \begin{lemma}
     The set of all nilpotents in $R$ equals to the intersection of all primes ideals of $R$, namely $\nil (R)=\bigcap_{P \in \spec(R)}P$.
 \end{lemma}
-The proof of this lemma and theorem can be found in the note of exercises.
+The proof of this lemma and theorem can be found in the note on exercises.
 
 
-
+\newpage
 \section{Module}
 \begin{theorem}
     Let $R$ be a ring and $A,A_{1},A_{2}, \ldots,A_{n}$ $R$-modules. Then $A\simeq \bigoplus_{i=1}^n A_{i}$ if and only if for each $i=1,2, \ldots,n$ there are $R$-modules homomorphism $\pi_i:A\to A_{i}$ and $\iota_i:A_{i}\to A$ such that
@@ -565,6 +565,19 @@ The tensor product preserves surjections. If $h:A_R\to A_R'$ and $k:\tensor[_R]{
 \end{proof}
 
 \begin{theorem}
+    Let $0\to A\xrightarrow{f}B\xrightarrow{g}C\to 0$ is a short exact sequence of left $R$-module and $D$ a right $R$-module. Then $0\to D\otimes_R A\xrightarrow{1_D \otimes f}D\otimes_R B\xrightarrow{1_D \otimes g}D \otimes_R C\to 0$ is a short exact sequence of abelian groups if one of the following conditions holds:
+    
+    (i) $0\to A\xrightarrow{f}B\xrightarrow{g}C\to 0$ is split exact.
+
+    (ii) $R$ has an identity and $D$ is a free right $R$-module.
+
+    (iii) $R$ has an identity and $D$ is a projective unitary right $R$-module.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
     Let $R$ and $S$ be rings and $\tensor[_S]{A}{_R},\tensor[_R]{B}{},C_R,\tensor[_R]{D}{_S}$ (bi)modules as indicated.
 
     (i) $A\otimes_R B$ is a left $S$-module such that $s(a\otimes b)=sa\otimes b$ for all $s \in S, a \in A, b \in B$.
@@ -659,7 +672,7 @@ $\varphi \psi=\operatorname{id}_{}, \psi \varphi=\operatorname{id}_{}$.
     \end{equation*}
     thus $\alpha$ is a group homomorphism.
 
-    Now we need to find its inverse map $\beta:\Hom_{R}(A, \Hom_{S}(B, C)) \to\Hom_{S}(A \otimes_R B, C) $. Note that for all $g \in \Hom_{R}(A, \Hom_{S}(B, C))$, there is $\beta g \in \Hom_{S}(A\otimes_R B, C)$ and $\beta g$ is a map from a tensor product to a set. Thus we first define $\psi:A\times B \to C$ such that $\psi (a,b)=(g(a))(b)$. Since $A\times B$ is Descartes product and $g \in \Hom_{S}(A\otimes_R B, C)$, then easily $\psi$ is well-defined.
+    Now we need to find its inverse map $\beta:\Hom_{R}(A, \Hom_{S}(B, C)) \to\Hom_{S}(A \otimes_R B, C) $. Note that for all $g \in \Hom_{R}(A, \Hom_{S}(B, C))$, there is $\beta g \in \Hom_{S}(A\otimes_R B, C)$ and $\beta g$ is a map from a tensor product to a set. Thus we first define $\psi:A\times B \to C$ such that $\psi (a,b)=(g(a))(b)$. Since $A\times B$ is Cartesian product and $g \in \Hom_{S}(A\otimes_R B, C)$, then easily $\psi$ is well-defined.
     $$\psi(a_{1}+a_{2},b)=(g(a_{1}+a_{2}))(b)=(g(a_{1}))(b)+(g(a_{2}))(b)=\psi(a_{1},b)+\psi(a_{2},b),$$
     $$\psi(a,b_{1}+b_{2})=(g(a))(b_{1}+b_{2})=(g(a))(b_{1})+(g(a))(b_{2})=\psi(a,b_{1})+\psi(a,b_{2}),$$
     $$\psi(ar,b)=(g(ar))(b)=(g(a)r)(b)=(g(a))(rb)=\psi(a,rb).$$
@@ -672,6 +685,48 @@ $\varphi \psi=\operatorname{id}_{}, \psi \varphi=\operatorname{id}_{}$.
     Hence $\beta $ is a group homomorphism.
     Then $[(\alpha (\beta g))(a)](b)=(\beta g)(a \otimes b)=(g(a))(b)$ implies $\alpha (\beta g)=(\alpha \beta)g=g$ and $(\beta (\alpha f))(a \otimes b)=((\alpha f)(a))(b)=f(a \otimes b)$ imples $\beta (\alpha f)=(\beta \alpha )f =f$. Hence $\alpha$ is a group isomorphism and $\Hom_{S}(A \otimes_R B, C) \simeq \Hom_{R}(A, \Hom_{S}(B, C))$.
 \end{proof}
+
+\begin{theorem}
+    Let $A,B,C$ be modules over a commutative ring $R$.
+
+    (i) The set $\mathfrak{L} (A,B;C)$ of all $R$-bilinear maps $A\times B \to C$ is an $R$-module with $(f+g)(a,b)=f(a,b)+g(a,b)$ and $(rf)(a,b)=rf(a,b)$.
+
+    (ii) $\Hom_{R}(A\otimes_R B, C)\simeq \Hom_{R}(A, \Hom_{R}(B, C))\simeq \Hom_{R}(B, \Hom_{R}(A, C)) \simeq \mathfrak{L} (A,B;C)$.
+\end{theorem}
+\begin{proof}
+    (ii) Since $R$ is commutative, it is easy to prove $A\otimes_R B \simeq B \otimes_R A$. Then by Theorem3.31, $\Hom_{R}(A\otimes_R B, C) \simeq \Hom_{R}(A, \Hom_{R}(B, C)) \simeq \Hom_{R}(B, \Hom_{R}(A, C))$. The only thing we need to prove is that $\mathfrak{L} (A,B;C)$ is isomorphic to one of them. We now prove $\mathfrak{L} (A,B;C) \simeq \Hom_{R}(A\otimes_R B, C)$.
+
+    For all $f \in \mathfrak{L} (A,B;C)$, by universal property there is a unique $R$-module homomorphism $\bar{f}$ such that $f(a,b)=\bar{f}(a\otimes b)$. Define $\varphi:\mathfrak{L} (A,B;C)\to \Hom_{R}(A \otimes_R B,C )$ such that $\varphi(f)=\bar{f}$, then clearly $\varphi$ is well-defined. $\varphi(f_{1}+f_{2})=\bar{f_{1}+f_{2}}=\bar{f_{1}}+\bar{f_{2}}=\varphi(f_{1})+\varphi(f_{2})$ by the uniqueness of the induced homomorphim. And since $\varphi(rf)(a \otimes b)=(\bar{rf})(a \otimes b)=(rf)(a,b)=r(f(a,b))=r(\bar{f}(a\otimes b))=r\varphi(f)(a \otimes b)$, $\varphi$ is an $R$-module homomorphism. 
+    
+    Define $\psi:\Hom_{R}(A\otimes_R B, C) \to \mathfrak{L}(A,B;C)$ such that $(\psi(g))(a,b)=g(a \otimes b)$. For $a, a_{i} \in A, b, b_{i} \in B, r \in R$, $(\psi(f))(a_{1}+a_{2},b)=f((a_{1}+a_{2})\otimes b)=f(a_{1}\otimes b)+f(a_{2} \otimes b)=(\psi(f))(a_{1},b)+(\psi(f))(a_{2},b)$ and similar linearity holds for the second varible and $(\psi(f))(ar,b)=f(ar \otimes b)=f(a \otimes rb)=(\psi f)(a,rb)$. Then $\psi$ is well-defined.
+
+    It is easy to verify that $\psi $ is the inverse map of $\varphi$, hence $\mathfrak{L} (A,B;C) \simeq \Hom_{R}(A\otimes_R B, C)$. This completes the proof.
+\end{proof}
+
+\begin{theorem}
+    Let $F$ be a free module over a p.i.d $R$ and $G$ a submodule of $F$. Then $G$ is a free $R$-module and $\operatorname{rank} G \leqslant  \operatorname{rank} F$.
+\end{theorem}
+\begin{remark}
+    Here $F$ need not to be finite generated. The proof can be seen at Theorem6.1 in the book.
+\end{remark}
+
+\begin{corollary}
+    A unitary module $A$ over a p.i.d is free iff $A$ is projective.
+\end{corollary}
+Section 6 primarily deals with the decomposition of finitely generated modules over a p.i.d. The material closely parallels the corresponding sections in standard abstract algebra, where the discussion of decomposition proceeds from the general case to torsion modules, and finally to $p$-primary modules. The only minor differences lie in the proof details; moreover, Hungerford does not employ matrices as a mathematical tool here. Therefore, a detailed discussion of this section is omitted for now, and relevant concepts from Section 6 will only be supplemented when required in subsequent chapters.
+
+Personally, I don't feel this section is very well done. It either completely ignores the material learned in previous sections or merely scratches the surface, utilizing it only in minor parts of the proofs. Although it abandons matrix tools, the resulting proofs are neither more profound nor more concise. Instead, they get bogged down in technicalities, to the point of becoming rather complicated. In summary, I am personally not a big fan of this section (just my personal opinion).
+
+\begin{proposition}
+    If $A$ and $B$ are cycli modules over $R$ of nonzero orders $r$ and $s$ respectively. Let $d=(r,s)$ be the g.c.d of $r,s$and $m=[r,s]$ the l.c.m of $r,s$. Then the invariant factors of $A \oplus B$ are $d$ and $m$.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\newpage
+
+
 
 
 
