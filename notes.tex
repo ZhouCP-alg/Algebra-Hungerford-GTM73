@@ -18,6 +18,7 @@
 \DeclareMathOperator{\coim}{Coim}
 \DeclareMathOperator{\coker}{Coker}
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Mat}{Mat}
 \setstretch{1.8}
 \everymath{\displaystyle}
 \title{Notes on GTM-73}
@@ -718,15 +719,99 @@ Section 6 primarily deals with the decomposition of finitely generated modules o
 Personally, I don't feel this section is very well done. It either completely ignores the material learned in previous sections or merely scratches the surface, utilizing it only in minor parts of the proofs. Although it abandons matrix tools, the resulting proofs are neither more profound nor more concise. Instead, they get bogged down in technicalities, to the point of becoming rather complicated. In summary, I am personally not a big fan of this section (just my personal opinion).
 
 \begin{proposition}
-    If $A$ and $B$ are cycli modules over $R$ of nonzero orders $r$ and $s$ respectively. Let $d=(r,s)$ be the g.c.d of $r,s$and $m=[r,s]$ the l.c.m of $r,s$. Then the invariant factors of $A \oplus B$ are $d$ and $m$.
+    If $A$ and $B$ are cyclic modules over $R$ of nonzero orders $r$ and $s$ respectively. Let $d=(r,s)$ be the g.c.d of $r,s$and $m=[r,s]$ the l.c.m of $r,s$. Then the invariant factors of $A \oplus B$ are $d$ and $m$.
 \end{proposition}
 \begin{proof}
+    If we can prove $0\to \faktor{R}{(m)}\xrightarrow{f}\faktor{R}{(r)}\oplus \faktor{R}{(s)}\xrightarrow{g}\faktor{R}{(d)}\to 0$ is split, then $\faktor{R}{(r)}\oplus \faktor{R}{(s)} \simeq \faktor{R}{(d)} \oplus \faktor{R}{(m)}$ and this implies that the invariant factors of $A\oplus B$ are $d,m$ since $A \simeq \faktor{R}{(r)}$, $B \simeq \faktor{R}{(s)}$. 
+
+    Define $f(x+(m))=(x+(r),x+(s))$ and $g(x+(r),y+(s))=x-y+(d)$, then verify $f$ and $g$ are well-defined. In fact, suppose $r=r'd$ and $s=s'd$, then $(r',s')=1$ and $m=r's'd$. Thus there exist $u,v \in R$ such that $ur'+vs'=1$. Note that $m(1+(r),1+(s))=0$, then $f$ is well-defined. If $(x_{1}+(r),y_{1}+(s))=(x_{2}+(r),y_{2}+(s))$, then $\exists k_{1},k_{2} \in R$ s.t. $x_{1}-x_{2}=k_{1}r, y_{1}-y_{2}=k_{2}s$. Thus $(x_{1}-y_{1}+(d))-(x_{2}-y_{2}+(d))=k_{1}r-k_{2}s+(d)=(k_{1}r'-k_{2}s')d+(d)=0$. Therefore $g$ is well-defined.
     
+    And then verify $f$ is a monomorphism and $g$ is an epimorphism. Define $\alpha:\faktor{R}{(d)}\to \faktor{R}{(r)}\oplus \faktor{R}{(s)}$ such that $\alpha(1+(d))=(ur'+(r),-vs'+(s))$. Note that $g \alpha=\operatorname{id}$. Hence the sequence is split.
 \end{proof}
 
+
 \newpage
+\section{Linear Algebra}
+\begin{theorem}
+    Let $R$ be a ring with identity and let $E,F,G$ be free left $R$-modules with finite ordered bases $U=\{u_{1},u_{2}, \ldots,u_{n}\}$, $V=\{v_{1},v_{2}, \ldots,v_{m}\}$, $W=\{w_{1},w_{2}, \ldots,w_{p}\}$ respectively. If $f \in \Hom_{R}(E, F)$ has $n \times m$ matrix $A$ relative to bases $U$ and $V$ and $g \in \Hom_{R}(F, G)$ has $n \times p$ matrix $B$ relative to bases $V$ and $W$, then $gf \in \Hom_{R}(E, G)$ has $n \times p$ matrix $AB$ relative to bases $U$ and $W$.
+\end{theorem}
+\begin{proof}
+    An intuitive but non-rigorous proof:
+    $$g(f(\begin{bmatrix} u_1 \\ u_2 \\ \vdots \\ u_n \end{bmatrix}))=g(A\begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_m \end{bmatrix})=Ag(\begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_m \end{bmatrix})=AB \begin{bmatrix} w_1 \\ w_2 \\ \vdots \\ w_p \end{bmatrix}.$$
+\end{proof}
+\begin{definition}
+    If $S$ and $T$ are any rings, then a function $\theta:S\to T$ is said to be an \textbf{anti-isomorphism} if $\theta$ is an isomorphism of additive group such that $\theta(s_{1}s_{2})=\theta(s_{2})\theta(s_{1})$ for all $s_{i} \in S$.
 
+    If $R $ is a ring, then the \textbf{opposite ring} of $R$, denoted as $R^{op}$, is the ring that has the same set of elements as $R$, the same addition as $R$, and multiplication $\circ$ given by $a \circ b=ba$ where $ba$ is the product in $R$.
+\end{definition}
 
+\begin{theorem}
+    Let $R$ be a ring with identity and $E$ a free left $R$-module with a finite basis of $n$ elements. Then there is an isomorphism of rings:
+    \begin{equation*}
+        \Hom_{R}(E, E) \simeq \Mat_n(R^{op}).
+    \end{equation*}
+\end{theorem}
+
+\begin{definition}
+    Let $B_1, B_2, \ldots, B_n$ and $C$ be modules over a commutative ring $R$ with identity. A function $f:B_{1} \times \cdots \times B_{n} \to C$ is said to be \textbf{$R$-multilinear} if for each $i=1,2, \ldots,n $ and all $r,s \in R$ and $b,b' \in B$, there is $f(b_{1}, \ldots,b_{i-1},rb+sb',b_{i+1}, \ldots,b_{n})=rf(b_{1}, \ldots,b_{i-1},b,b_{i+1}, \ldots,b_{n})+sf(b_{1}, \ldots,b_{i-1},b',b_{i+1}, \ldots,b_{n})$.
+
+    If $C=R$, then f is called an \textbf{$n$-linear} or \textbf{$R$-multilinear form}. If $C=R$ and $B_{1}=B_{2}=\cdots=B_{n}=B$, then $f$ is called an \textbf{$R$-multilinear form on $B$}.
+\end{definition}
+
+\begin{definition}
+    Let $B$ and $C$ be $R$-modules and $f:B^n \to C$ an $R$-multilinear function. multilinear function. Then $f$ is said to be \textbf{symmetric} if
+    $$f(b_{\sigma 1}, \dots, b_{\sigma n}) = f(b_1, \dots, b_n) \quad \text{for every permutation } \sigma \in S_n,$$
+    and \textbf{skew-symmetric} if
+    $$f(b_{\sigma 1}, \dots, b_{\sigma n}) = (\operatorname{sgn} \sigma) f(b_1, \dots, b_n) \quad \text{for every } \sigma \in S_n.$$
+    $f$ is said to be \textbf{alternating} if
+    $$f(b_1, \dots, b_n) = 0 \quad \text{whenever } b_i = b_j \quad \text{for some } i \neq j.$$
+\end{definition}
+
+\begin{theorem}
+    If $B$ and $C$ are modules over a commutative ring $R$ with identity, then every alternating $R$-multilinear function $f : B^n \to C$ is skew-symmetric.
+\end{theorem}
+If $r+r\neq 0$ for all nonzero $r \in R$, then an $n$-linear form $B^n \to R$ is alternating iff it is skew-symmetric. However, if $\operatorname{char} R=2$, it may be skew-symmetric but not alternating.
+\begin{example}
+    Let $R=B=\mathbb{Z}_{2}$ and $f:B\to R$ as $f(x,y)=xy$. Obviously $f$ is bilinear and skew-symmetric. But $f(1,1)=1\cdot 1 =1\neq 0$, thus $f$ is not alternating.
+\end{example}
+
+\begin{theorem}
+    If $R$ is a commutative ring with identity and $r \in R$, then there exists a unique alternating $R$-multilinear form $f : (R^n)^n \to R$ such that $f(\varepsilon_1, \varepsilon_2, \dots, \varepsilon_n) = r$, where $\{\varepsilon_1, \dots, \varepsilon_n\}$ is the standard basis of $R^n$.
+\end{theorem}
+
+\begin{definition}
+    Let $R$ be a commutative ring with identity. The unique alternating $R$-multilinear form $d : \operatorname{Mat}_n R \to R$ such that $d(I_n) = 1_R$ is called the \textbf{determinant function} on $\operatorname{Mat}_n R$. The \textbf{determinant} of a matrix $A \in \operatorname{Mat}_n R$ is the element $d(A) \in R$ and is denoted $|A|$.
+\end{definition}
+
+\begin{theorem}
+    Let $\phi : E \to E$ be a linear transformation of an $n$-dimensional vector space $E$ over a field $K$.
+
+    (i) $E$ has a basis relative to which the matrix of $\phi$ is the direct sum of the companion matrices of the invariant factors $q_1, \dots, q_t \in K[x]$ of $\phi$.
+
+    (ii) $E$ has a basis relative to which the matrix of $\phi$ is the direct sum of the companion matrices of the elementary divisors $p_1^{m_{11}}, \dots, p_s^{m_{sk_s}} \in K[x]$ of $\phi$.
+
+    (iii) If the minimal polynomial $q$ of $\phi$ factors as $q = (x - b_1)^{r_1}(x - b_2)^{r_2} \dots (x - b_d)^{r_d}$ ($b_i \in K$), which is always the case if $K$ is algebraically closed, then every elementary divisor of $\phi$ is of the form $(x - b_i)^j$ ($j \le r_i$) and $E$ has a basis relative to which the matrix of $\phi$ is the direct sum of the elementary Jordan matrices associated with the elementary divisors of $\phi$.
+\end{theorem}
+
+\begin{theorem}
+    Let $\phi : E \to E$ be a linear transformation of an $n$-dimensional vector space over a field $K$ with characteristic polynomial $p_{\phi} \in K[x]$, minimal polynomial $q_{\phi} \in K[x]$, and invariant factors $q_1, \dots, q_t \in K[x]$.
+
+    (i) The characteristic polynomial is the product of the invariant factors; that is, $p_{\phi} = q_1 q_2 \dots q_t = q_1 q_2 \dots q_{t-1} q_{\phi}$.
+
+    (ii) (Cayley-Hamilton) $\phi$ is root of its characteristic polynomial; that is, $p_{\phi}(\phi) = 0$.
+
+    (iii) An irreducible polynomial in K[x] divides $p_{\phi} $ if and only if it divides $q_{\phi}$.
+
+    Conclusions (i)--(iii) are valid, \textit{mutatis mutandis}, for any matrix $A \in \operatorname{Mat}_n K$.
+\end{theorem}
+
+\begin{definition}
+    Let $\phi : E \to E$ be a linear transformation of a vector space $E$ over a field $K$. A nonzero vector $u \in E$ is an \textbf{eigenvector} (or \textbf{characteristic vector} or \textbf{proper vector}) of $\phi$ if $\phi(u) = ku$ for some $k \in K$. An element $k \in K$ is an \textbf{eigenvalue} (or \textbf{proper value} or \textbf{characteristic value}) of $\phi$ if $\phi(u) = ku$ for some nonzero $u \in E$.
+\end{definition}
+
+\begin{theorem}
+    Let $\phi : E \to E$ be a linear transformation of a finite dimensional vector space $E$ over a field $K$. Then $\phi$ has a diagonal matrix $D$ relative to some ordered basis of $E$ if and only if the eigenvectors of $\phi$ span $E$. In this case the diagonal entries of $D$ are the eigenvalues of $\phi$ and each eigenvalue $k \in K$ appears on the diagonal $\dim_K C(\phi, k)$ times.
+\end{theorem}
 
 
 
