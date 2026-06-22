@@ -19,6 +19,7 @@
 \DeclareMathOperator{\coker}{Coker}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Nat}{Nat}
 \setstretch{1.8}
 \everymath{\displaystyle}
 \title{Notes on GTM-73}
@@ -812,7 +813,194 @@ If $r+r\neq 0$ for all nonzero $r \in R$, then an $n$-linear form $B^n \to R$ is
 \begin{theorem}
     Let $\phi : E \to E$ be a linear transformation of a finite dimensional vector space $E$ over a field $K$. Then $\phi$ has a diagonal matrix $D$ relative to some ordered basis of $E$ if and only if the eigenvectors of $\phi$ span $E$. In this case the diagonal entries of $D$ are the eigenvalues of $\phi$ and each eigenvalue $k \in K$ appears on the diagonal $\dim_K C(\phi, k)$ times.
 \end{theorem}
+\newpage
 
+\section{Category}
+\begin{definition}
+    A \textbf{category} is a class $\mathscr{C}$ of objects $A,B,C, \ldots$ together with a class of disjoint sets $\Hom_{}(A, B)$, one for each pair of objects in $\mathscr{C}$, and with triple $(A,B,C)$ of objects of $\mathscr{C}$ a function $\Hom_{}(B, C) \times \Hom_{}(A, B) \to \Hom_{}(A, C)$ which satisfy two axioms:
+
+    (i) Associativity. If $f:A \to B, g:B\to C, h:C\to D$ are morphisms of $\mathscr{C}$, then $h \circ (g \circ f)=(h \circ g) \circ f$.
+    
+    (ii) Identity. For each object $B$ of $\mathscr{C}$ there exists a morphism $1_B:B\to B$ such that for any $f:A\to B$ and $g:B \to C$, $1_B \circ f=f$ and $g \circ 1_B=g$.
+\end{definition}
+
+\begin{definition}
+    A \textbf{concrete category} is a category $\mathscr{C}$ together with a function $\sigma$ that assigns to each object $A$ of $\mathscr{C}$ a set $\sigma(A)$ (called the underlying set of $A$) such that:
+
+    (i) every morphism $A\to B$ is a function on the underlying sets $\sigma(A)\to \sigma(B)$;
+
+    (ii) the identity morphism of each object $A$ is the identity function on the underlying set $\sigma(A)$;
+
+    (iii) compoistion of morphisms in $\mathscr{C}$ agrees with compostion of functions on the underlying sets.
+\end{definition}
+
+\begin{example}
+    A multiplicative group $G$ can be considered as a category with only one object $G$. The morhpisms $\Hom_{}(G, G)$ of the category are the elements of $G$. Composition of morphisms $a,b$ is simply the composition $ab$ given by the binary operation in $G$. It is easy to verify this is a category. But this is not a concrete category since the object $G$ has no underlying set.
+\end{example}
+
+\begin{definition}
+    An object $I$ in a category $\mathscr{C}$ is said to be \textbf{universal} (or \textbf{initial}) if for each object $C$ of $\mathscr{C}$, there exists one and only one morphism $I\to C$. An object $T$ of $\mathscr{C}$ is said to be \textbf{couniversal} (or \textbf{terminal}) if for each object $D$ of $\mathscr{C}$, there exists one and only one morphism $D\to T$.
+\end{definition}
+
+\begin{theorem}
+    Any two universal (couniversal) objects in a category $\mathscr{C}$ are equivalent.
+\end{theorem}
+
+\begin{definition}
+    Let $\mathscr{C}$ be a category and $\{A_{i}: i \in I\}$ a family of objects of $\mathscr{C}$. A \textbf{product} for the family $\{A_{i}: i \in I\}$ is an object $P$ of $\mathscr{C}$ together with a family of morphisms $\{\pi_i : P\to A_{i}\}$ such that for each object $B$ of $\mathscr{C}$ and family of morphisms $\{\varphi_i:B \to A_{i}\}$, there exists a unique morphism $\varphi: B\to P$ such that $\pi_i \circ \varphi =\varphi_i$ for all $i \in I$. 
+\end{definition}
+
+\begin{definition}
+    Let $\mathscr{C}$ be a category and $\{A_{i}: i \in I\}$ a family of objects of $\mathscr{C}$. A \textbf{coproduct} for the amily $\{A_{i}: i \in I\}$ is an object $S$ of $\mathscr{C}$ together with a family of morphisms $\{\iota_i : A_{i}\to  S\}$ such that for each object $B$ of $\mathscr{C}$ and family of morphisms $\{\psi_i: A_{i} \to B\}$, there exists a unique morphism $\psi: B\to P$ such that $\psi \circ \iota_i = \psi_i$ for all $i \in I$. 
+\end{definition}
+
+It is obvious that a product of a family of objects in a category is a couniversal or terminal object and a coprouct of a family of objects in a category is a universal or initial object.
+
+\begin{theorem}
+    If $(A,\{\varphi_i\})$ and $(B,\{\psi_i\})$ are both products [resp. coproducts] for a family of objects of a category, then $A$ and $B$ are equivalent.
+\end{theorem}
+
+\begin{definition}
+    Let $F$ be an object in a concrete category $\mathscr{C}$, $X$ a nonempty set, and $i:X\to F$ a map (of sets). F is \textbf{free on the set $X$} provided that for any object $A$ of $\mathscr{C}$ and map (of sets) $f:X\to A$, there exists a unique morphism $\bar{f}:F\to A$ of $\mathscr{C}$ such that $\bar{f} \circ i = f$.
+\end{definition}
+
+Note that a free object of a category is also a universal object. By the Theorem 5.1, free objects and coproducts are actually equivalent in a concrete category.
+
+\begin{definition}
+    Let $\mathscr{C}$ and $\mathscr{D}$ be categories. A \textbf{contravariant functor} $S$ from $\mathscr{C}$ to $\mathscr{D}$ (denoted $S:\mathscr{C}\to \mathscr{D}$) is a pair functions (both denoted by $S$), an object function that assigns to each object $C$ of $\mathscr{C}$ an object $S(C)$ of $\mathscr{D}$ and a morphism function which assigns each morphism $f:C\to C'$ of $\mathscr{C}$ a morphism $S(f):S(C')\to S(C)$ such that:
+
+    (i) $S(1_C)=1_{S(C)}$ for every indetity morphism $1_C$ of $\mathscr{C}$;
+
+    (ii) $S(g \circ f)=S(f) \circ S(g)$ for any two morphisms $f,g$ of $\mathscr{C}$ whose composition $g \circ f$ is defined.
+\end{definition}
+
+
+\begin{example}
+    Let $R$ be a ring and $A$ a fixed $R$-module. For each $R$-module $C$, let $S(C)=\Hom_{R}(C, A)$. For each $R$-module homomorphism $f:C \to C'$, let $S(f)$ be the usual induced map $\bar{f}:\Hom_{R}(C', A)\to \Hom_{R}(C, A)$. Then $S$ is a contravariant functor from the category of $R$-module to the category of abelian group since $\Hom_{R}(C, A)$ is an abelian group.
+
+    More generally, let $A$ be a fixed object in a category $\mathscr{C}$. Define a contravariant functor $h^A=\Hom_{}(-, A)$ from $\mathscr{C}$ to the category $\mathscr{S}$ of sets by assigning to an object $C$ of $\mathscr{C}$ the set $h^A(C)=\Hom_{}(C, A)$ of all morphisms in $\mathscr{C}$ from $C$ to $A$. If $f:C\to C'$ is a morhpism of $\mathscr{C}$, the $h^A(C):\Hom_{}(C', A)\to \Hom_{}(C, A)$ be the function given by $g \mapsto g \circ f$ ($g \in \Hom_{}(C', A)$). The functor $h^A$ is called \textbf{contravariant hom functor}.
+\end{example}
+
+The product category of multiple categories is defined in an intuitive manner analogous to the Cartesian product. On a product category, one can define functors of several variables (mapping to a single codomain category). Such a functor can be covariant in certain variables and contravariant in others, with its action on morphisms dictated by the variance of each respective variable. Moreover, if all but one variable are fixed, the multivariable functor naturally reduces to an ordinary single-variable functor.
+
+\begin{example}
+    $\Hom_{R}(-, -)$ is a functor of two variables, contravariant in the first and covariant in the second, from the category of $\mathscr{M} \times \mathscr{M}$ of left $R$-module to the category of abelian groups.
+
+    More generally, let $\mathscr{C}$ be any category. Consider the functor that assigns to each pair $(A,B)$ of objects of $\mathscr{C}$ the set $\Hom_{\mathscr{C}}(A, B)$ and to each pair of morphisms $f:A\to A'$ and $g:B\to B'$ the function 
+    \begin{equation*}
+        \Hom_{}(f, g): \Hom_{\mathscr{C}}(A', B) \to \Hom_{\mathscr{C}}(A, B')
+    \end{equation*}
+    given by $h \mapsto g \circ h \circ f$. Then $\Hom_{\mathscr{C}}(-, -)$ is a functor of two variables from $\mathscr{C}$ to the category $\mathscr{S}$ of sets, contravariant in the first variable and covariant in the second.
+\end{example}
+
+\begin{example}
+    Let $K$ be commutative ring with identity. Then the functor given by
+    \begin{align*}
+        T(A_1, \cdots, A_n) &= A_1 \otimes_K \cdots \otimes_K A_n \\
+        T(f_1, \cdots, f_n) &= f_1 \otimes \cdots \otimes f_n
+    \end{align*}
+    is a functor of $n$ covariant variables from the category of $K$-modules to itself. $T$ is also written as $- \otimes_K \cdots \otimes_K -$.
+\end{example}
+
+\begin{definition}
+    Let $\mathscr{C}$ and $\mathscr{D}$ be categories and $T:\mathscr{C}\to \mathscr{D}$, $S:\mathscr{C}\to \mathscr{D}$ contravariant functors. A \textbf{natural transformation} $\alpha:S\to T$ is a function that assigns to each object $C$ of $\mathscr{C}$ a morphism $\alpha_C:S(C)\to T(C)$ of $\mathscr{D}$ in such a way that for every morphism $f:C\to C'$ the diagram
+    $$    \begin{tikzcd}
+        S(C) \arrow[r, "\alpha_C"]                        & T(C)                     \\
+        S(C') \arrow[r, "\alpha_{C'}"'] \arrow[u, "S(f)"] & T(C') \arrow[u, "T(f)"']
+    \end{tikzcd}$$
+    in $\mathscr{D}$ is commutative. If $\alpha_C$ is an equivalence for every $C$ in $\mathscr{C}$, then $\alpha$ is a \textbf{natural isomorphism} of the functors $S$ and $T$.    
+\end{definition}
+
+\begin{example}
+    Let $T:\mathscr{C}\to \mathscr{C}$ is any functor, the the assignment $C \mapsto 1_{T(C)}$ defines a natural isomorphism $I_T: T\to T$, called the identity natural isomorphism.
+\end{example}
+
+\begin{example}
+    Let $R$ be a ring with identity and $\mathscr{M}$ the category of left $R$-modules. Then there is a natural isomorphism from the functor $R \otimes -$ to $I_{\mathscr{M}}$ since for each module homomorphism $f:A\to B$, the diagram 
+    \begin{equation*}
+        \begin{tikzcd}
+        R \otimes_R B \arrow[r, "\alpha_B"] \arrow[d, "1_R \otimes f"'] & B \arrow[d, "f"] \\
+        R \otimes C \arrow[r, "\alpha_C"']                             & C
+        \end{tikzcd}
+    \end{equation*}
+    is commutative.
+\end{example}
+
+\begin{definition}
+    Let $S$ be a contravariant functor from a category $\mathscr{C}$ to the category $\mathscr{S}$ of sets. $S$ is said to be a \textbf{representable functor} if there is an object $A$ of $\mathscr{C}$ and a natural isomorphism $\alpha$ from the contravariant hom functor $h^A=\Hom_{\mathscr{C}}(-,A)$ to $S(-)$. The pair $(A,\alpha)$ is called a representation of $S$ and $S$ is said to be represented by the object $A$.
+\end{definition}
+
+\begin{example}
+    Let $\mathscr{G}$ be the category of groups and $F$ the forgetful functor from $\mathscr{G}$ to the category $\mathscr{S}$ of the set (that is, $F$ assigns to a group its underlying set). We need find a group $A$ of $\mathscr{G}$ so that there is a natural isomorphism from $\Hom_{\mathscr{G}}(A,-)$ to $F(-)$. Take $A=\mathbb{Z}$, then for each $\alpha_G \in \Hom_{\mathscr{G}}(\mathbb{Z},G)$ consider $\alpha_{G,g}(1)=g$ and $\alpha_{G,g}(n)=g^n$ where $G \in \mathscr{G}$ and $g \in G$. By the property of the homomorphism from $\mathbb{Z}$ to a group, every $\alpha_G$ is determined by the value $g=\alpha_{G,g}(1)$, that is, the homomorphisms in $\Hom_{\mathscr{G}}(\mathbb{Z},G)$ one to one correspond with the elements in $F(G)$ and then $\Hom_{\mathscr{G}}(\mathbb{Z},G)\simeq F(G)$. This implies that the forgetful functor $F$ is representable and every element in a group $G$ corresponds to a morphism from $\mathbb{Z}$ to $G$. 
+    
+    Here is a question. We do make a great transform from specific elements in a group to the group homomorphisms from $\mathbb{Z}$ to the group $G$. What about the operation in $G$? Is there a group $A$ such that there is a natural isomorphism from $\Hom_{\mathscr{G}}(A,-)$ to $\operatorname{id}_{\mathscr{G}}(-)$?
+\end{example}
+
+\begin{example}
+    
+\end{example}
+
+\begin{definition}
+    Let $T:\mathscr{C}\to \mathscr{D}$ be a covariant functor and $\mathscr{C}_T$ the category with objects all pairs $(C,s)$ where $C$ is an object of $\mathscr{C}$ and $s \in T(C)$. A morphism in $\mathscr{C}_T$ from $(C,s)$ to $(D,t)$ is defined to be a morphism $f:C\to D$ of $\mathscr{C}$ such that $T(f)(s)=t \in T(D)$. A universal object in $\mathscr{C}_T$ is called a \textbf{universal element} of the functor $T$.
+\end{definition}
+
+\begin{example}
+    Consider the example of Example 5.7. Let $\mathscr{G}_F$ be the category with objects all pairs $(G,g)$ where $G$ is an object of $\mathscr{G}$ and $g \in F(G)$. Consider the pair $(\mathbb{Z},1)$, then for each $(G,g)$ of $\mathscr{G}_F$ there is a morphism $\varphi:(\mathbb{Z},1)\to (G,g)$ such that $\varphi(1)=g$. Hence $(\mathbb{Z},1)$ is the universal object in $\mathscr{G}_F$, and then a universal element of the forgetful functor $F$.
+\end{example}
+
+\begin{lemma}
+    Let $T:\mathscr{C}\to \mathscr{S}$ be a contravariant functor from a category $\mathscr{C}$ to the category $\mathscr{S}$ of sets and let $A$ be an object of $\mathscr{C}$.
+
+    (i) If $\alpha:h^A\to T$ is a natural transformation for the contravariant functor $h^A=\Hom_{\mathscr{C}}(-,A)$ to $T$ and $u=\alpha_A(1_A) \in T(A)$, then for any object $C$ of $\mathscr{C}$ and $g \in \Hom_{\mathscr{C}}(C,A)$, there is $$\alpha_C(g)=T(g)(u).$$
+
+    (ii) If $u \in T(A)$ and for each object $C$ of $\mathscr{C}$, $\beta_C:\Hom_{\mathscr{C}}(C,A)\to T(C)$ is the map defined by $\beta_C(g)= T(g)(u)$, then there is a natural transformation $\beta:h^A\to T$ such that $\beta_A(1_A)=u$.
+\end{lemma}
+
+\begin{theorem}
+    Let $T:\mathscr{C}\to \mathscr{S}$ be a covariant [resp. contravariant] functor from a category $\mathscr{C}$ to the category $\mathscr{S}$ of sets. Then there is a one-to-one correspondence between the class $X$ of all representations of $T$ and the class $Y$ of all universal elements of $T$, given by $(A,\alpha)\mapsto (A,\alpha_A(1_A))$. 
+\end{theorem}
+
+\begin{corollary}(Yoneda)
+    Let $T:\mathscr{C}\to \mathscr{S}$ be a covariant [resp. contravariant] functor from a category $\mathscr{C}$ to the category $\mathscr{S}$ of sets and let $A$ be an object of $\mathscr{C}$. Then there is a one-to-one correspondence between the set $T(A)$ and the set $\operatorname{Nat}_{}(h_A,T)$ of all natural transformations from the covariant functor $h_A=\Hom_{\mathscr{C}}(A,-)$ to the functor $T$. This bijection is natural in $A$ and $T$.
+\end{corollary}
+
+\begin{theorem}
+    Let $\mathscr{C}$ and $\mathscr{D}$ be categories and $T$ a functor from the product category $\mathscr{C} \times \mathscr{D}$ to the category $\mathscr{S}$ of sets, contravariant in the first variable and covariant in the second, such that for each object $C$ of $\mathscr{C}$, the covariant functor $T(C,-) : \mathscr{D} \to \mathscr{S}$ has a representation $(A_C, \alpha^C)$. Then there is a unique covariant functor $S : \mathscr{C} \to \mathscr{D}$ such that $S(C) = A_C$ and there is a natural isomorphism from $\Hom_{\mathscr{D}}(S(-), -)$ to $T$, given by
+    $$\alpha^C_D : \operatorname{hom}_{\mathscr{D}}(S(C), D) \to T(C,D).$$
+\end{theorem}
+\begin{proof}
+    Define $S(C)=A_C$ then we need to define $S(f)$ for each morphism $f:C\to C'$ of $\mathscr{C}$. Note that 
+    $$\begin{aligned}
+    &T(f,-): T(C',-)\to T(C,-), \\
+    &\alpha^C: h_{A_{C}}=\Hom_{\mathscr{D}}(A_C,-) \simeq T(C,-), \\
+    &\alpha^{C'}: h_{A_{C'}}=\Hom_{\mathscr{D}}(A_{C'},-) \simeq T(C',-).
+    \end{aligned}$$
+    Then let the functor $U$ be 
+    $$U=(\alpha^C)^{-1} \circ T(f,-) \circ \alpha^{C'}:\Hom_{\mathscr{D}}(A_{C'},-)\to \Hom_{\mathscr{D}}(A_C,-),$$
+    hence $U \in \Nat(h_{A_{C'}},h_{A_C})$.
+
+    By Yoneda's theorem there is a one-to-one correspondence between $\Nat(h_{A_{C'}},h_{A_C})$ and $h_{A_C}(A_{C'})$. Thus there exists $h \in h_{A_C}(A_{C'})=\Hom_{\mathscr{D}}(A_C,A_{C'})$ corresponding with the functor $U$. In fact, $h=U_{A_{C'}}(1_{A_{C'}})$. Then we define $S(f)=h$. It is easy to verify $S$ is a functor from $\mathscr{C}$ to $\mathscr{D}$ since $S(1_C)=1_{A_C}$ holds by the property of the universal elements and $S(f_{1} \circ f_{2})=S(f_{1}) \circ S(f_{2})$ holds by the construction of $S$.
+\end{proof}
+\begin{remark}
+    Note that for any $f:C\to C'$, 
+    $$\begin{aligned}
+    S(f) = (\alpha^C_{A_{C'}})^{-1} \Big( T(f, A_{C'}) \big( \alpha^{C'}_{A_{C'}}(1_{A_{C'}}) \big) \Big), \\
+    \alpha^C_{A_{C'}}\big(S(f)\big) = T(f, A_{C'}) \big( \alpha^{C'}_{A_{C'}}(1_{A_{C'}}) \big).
+    \end{aligned}$$
+    Then for $C \xrightarrow{f_2} C' \xrightarrow{f_1} C''$,
+    $$\alpha^C_{A_{C''}}\big(S(f_1 \circ f_2)\big) = T(f_1 \circ f_2, A_{C''}) \big( \alpha^{C''}_{A_{C''}}(1_{A_{C''}}) \big) .$$
+    Note that
+    $$\begin{aligned}
+    \alpha^C_{A_{C''}}\big(S(f_1) \circ S(f_2)\big) 
+    &= T(1_C, S(f_1)) \Big[ \alpha^C_{A_{C'}}\big(S(f_2)\big) \Big]
+    = T(1_C, S(f_1)) \Big[ T(f_2, A_{C'}) \big( \alpha^{C'}_{A_{C'}}(1_{A_{C'}}) \big) \Big] \\
+    &= T(f_2, A_{C''}) \Big[ T(1_{C'}, S(f_1)) \big( \alpha^{C'}_{A_{C'}}(1_{A_{C'}}) \big) \Big]
+    = T(f_1 \circ f_2, A_{C''}) \big( \alpha^{C''}_{A_{C''}}(1_{A_{C''}}) \big).
+    \end{aligned}$$
+    Hence $S(f_1 \circ f_2) = S(f_1) \circ S(f_2)$.
+
+    Too complicated!!!
+\end{remark}
 
 
 

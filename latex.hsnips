@@ -270,6 +270,11 @@ snippet `(\\?[a-zA-Z]\w*({?\w*})?)cal` "mathcal" iAm
 endsnippet
 
 priority 100
+snippet `(\\?[a-zA-Z]\w*({?\w*})?)scr` "mathscr" iAm
+\mathscr{``rv = m[1].toUpperCase()``}$0
+endsnippet
+
+priority 100
 snippet `(?<!\\)\b([a-zA-Z]+)rm` "mathrm" iAm
 \mathrm{``rv = m[1]``}
 endsnippet
@@ -901,5 +906,11 @@ snippet `fk` "Faktor Quotient" Am
 endsnippet
 
 snippet `Hom` "Homomorphism Set" Am
-\Hom_{$1}($2, $3)$0
+\Hom_{$1}($2,$3)$0
 endsnippet
+
+
+
+
+
+
