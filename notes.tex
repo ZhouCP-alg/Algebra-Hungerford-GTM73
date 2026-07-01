@@ -1002,6 +1002,86 @@ The product category of multiple categories is defined in an intuitive manner an
     Too complicated!!!
 \end{remark}
 
+\begin{definition}
+    Let $S : \mathscr{C} \to \mathscr{D}$ and $T : \mathscr{D} \to \mathscr{C}$ be covariant functors. $S$ is said to be a \textbf{left adjoint} of $T$ (or $T$ a \textbf{right adjoint} of $S$, or $(S,T)$ an \textbf{adjoint pair}) if there is a natural isomorphism from the functor $\Hom_{\mathscr{D}}(S(-), -)$ to the functor $\Hom_{\mathscr{C}}(-, T(-))$.
+\end{definition}
+
+\begin{example}
+    Let $R,S$ be rings and $A_R,\tensor[_R]{B}{_S},C_S$ (bi)modules as indicated. Then by Theorem 3.32 there is an isomorphism of abelian groups $        \Hom_{S}(A\otimes_R B,C) \simeq \Hom_{R}(A,\Hom_{S}(B,C)).$ 
+    Note that this isomorphism is natural in $A$ and $C$ (also in $B$ but here we fix $B$) and $A\otimes_R B$ is a right $S-$module and $\Hom_{S}(B,C)$ is a right $R-$module. Let $\mathscr{C}$ be the category of right $R-$module and $\mathscr{D}$ the category of $S-$module. Then $- \otimes_R B$ is a functor from $\mathscr{C}$ to $\mathscr{D}$ and $\Hom_{S}(B,-)$ is a functor from $\mathscr{D}$ to $\mathscr{C}$. Thus the isomorphism above shows that $- \otimes_R B$ is a left adjoint functor of $\Hom_{S}(B,-)$.
+\end{example}
+
+\begin{proposition}
+    A covariant functor $T : \mathscr{D} \to \mathscr{C}$ has a left adjoint iff for each object $C$ in $\mathscr{C}$ the functor $\Hom_{\mathscr{C}}(C, T(-)) : \mathscr{D} \to \mathscr{S}$ is representable.
+\end{proposition}
+
+\begin{theorem}
+    If $T:\mathscr{C}\to \mathscr{S}$ where $\mathscr{S}$ is the category of sets is a covariant functor that has a left adjoint, then $T$ is represetable.
+\end{theorem}
+\begin{proof}
+    Let $F:\mathscr{S}\to \mathscr{C}$ be the left adjoint of $T$ and $\alpha$ the natural isomorphism from $F$ to $T$. Thus for any $C$ of $\mathscr{C}$ and $S$ of $\mathscr{S}$, there is $\alpha_{C,S}:\Hom_{\mathscr{C}}(F(S),C) \simeq \Hom_{\mathscr{S}}(S,T(C))$. 
+
+    Then let $S=\{1\}$ be a set with one point. We have $\Hom_{\mathscr{S}}(S,T(C)) \simeq T(C)$ since any $f \in \Hom_{\mathscr{S}}(S,T(C))$ is determined by $f(1) \in T(C)$. Thus there is an isomorphism $\beta_C:\Hom_{\mathscr{S}}(S,T(C)) \simeq T(C)$.
+
+    Note that $\beta_C \circ \alpha_{C,S}:\Hom_{\mathscr{C}}(F(S),C) \simeq T(C)$ and $\alpha_{C,S}, \beta_C$ are both natural in $C$. Hence $T$ is representable and its representation is $(\{1\},\alpha_{-,\{1\}})$. 
+\end{proof}
+
+\begin{corollary}
+    Any two left adjoints of a covariant functor are naturally ismorphic.
+\end{corollary}
+
+
+
+\newpage
+\section{Commutative rings and modules}
+\begin{definition}
+    A module $A$ is said to satisfy the \textbf{ascending chain condition (ACC)} on submodules (or to be \textbf{Noetherian}) if for every chain $A_1 \subset A_2 \subset A_3 \subset \dots$ of submodules of $A$, there is an integer $n$ such that $A_i = A_n$ for all $i \ge n$.
+
+    A module $B$ is said to satisfy the \textbf{descending chain condition (DCC)} on submodules (or to be \textbf{Artinian}) if for every chain $B_1 \supset B_2 \supset B_3 \supset \dots$ of submodules of $B$, there is an integer $m$ such that $B_i = B_m$ for all $i \ge m$.
+\end{definition}
+
+\begin{definition}
+    A module $A$ is said to satisfy the \textbf{maximum condition} [resp. \textbf{minimum condition}] on submodules if every nonempty set of submodules of $A$ contains a maximal [resp. minimal] element (with respect to set theoretic inclusion).
+\end{definition}
+
+\begin{theorem}
+    A module $A$ satisfies the ascending [resp. descending] chain condition on submodules if and only if $A$ satisfies the maximal [resp. minimal] condition on submodules.
+\end{theorem}
+
+\begin{theorem}
+    A module $A$ satisfies the ascending chain condition on submodules if and only if every submodule of $A$ is finitely generated.
+\end{theorem}
+\begin{remark}
+    A module satisfying DCC does not have the dual theorem.
+\end{remark}
+
+\begin{theorem}
+    Let $0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0$ be a short exact sequence of modules. Then $B$ satisfies the ascending [resp. descending] chain condition on submodules if and only if $A$ and $C$ satisfy it.
+\end{theorem}
+
+\begin{corollary}
+    If $A$ is a submodule of a module $B$, then $B$ satisfies the ascending [resp. descending] chain condition if and only if $A$ and $B/A$ satisfy it.
+\end{corollary}
+
+\begin{corollary}
+    If $A_1, \dots, A_n$ are modules, then the direct sum $A_1 \oplus A_2 \oplus \dots \oplus A_n$ satisfies the ascending [resp. descending] chain condition on submodules if and only if each $A_i$ satisfies it.
+\end{corollary}
+
+\begin{definition}
+    A normal series for a module $A$ is a chain of submodules: $A = A_0 \supset A_1 \supset A_2 \supset \dots \supset A_n$. The \textbf{factors} of the series are the quotient modules
+    $$A_i / A_{i+1} \quad (i = 0, 1, \dots, n - 1).$$
+    The \textbf{length} of the series is the number of proper inclusions ($=$ number of nontrivial factors). A \textbf{refinement} of the normal series $A_0 \supset A_1 \supset \dots \supset A_n$ is a normal series obtained by inserting a finite number of additional submodules between the given ones. A \textbf{proper refinement} is one which has length larger than the original series. Two normal series are \textbf{equivalent} if there is a one-to-one correspondence between the nontrivial factors such that corresponding factors are isomorphic modules. Thus equivalent series necessarily have the same length. A \textbf{composition series} for $A$ is a normal series $A = A_0 \supset A_1 \supset A_2 \supset \dots \supset A_n = 0$ such that each factor $A_k / A_{k+1}$ ($k = 0, 1, \dots, n - 1$) is simple.
+\end{definition}
+
+\begin{theorem}
+    Any two normal series of a module $A$ have refinements that are equivalent. Any two composition series of $A$ are equivalent.
+\end{theorem}
+
+\begin{theorem}
+    A nonzero module $A$ has a composition series if and only if $A$ satisfies both the ascending and descending chain conditions on submodules.
+\end{theorem}
+
+
 
 
 
