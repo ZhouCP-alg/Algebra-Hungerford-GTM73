@@ -20,11 +20,14 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Mat}{Mat}
 \DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Rad}{Rad}
 \setstretch{1.8}
 \everymath{\displaystyle}
 \title{Notes on GTM-73}
 \date{\today}
 
+
+\newenvironment{sketch}[1][Sketch of Proof]{\begin{proof}[#1]}{\end{proof}}
 
 
 \begin{document}
@@ -1081,6 +1084,92 @@ The product category of multiple categories is defined in an intuitive manner an
     A nonzero module $A$ has a composition series if and only if $A$ satisfies both the ascending and descending chain conditions on submodules.
 \end{theorem}
 
+Next we are going to talk about prime and primary ideals.
+
+\begin{theorem}
+    An ideal $P$ of a commutative ring $R$ is prime iff $R-P$ is a multiplicative set.
+\end{theorem}
+The set of all prime ideals in a ring $R$ is called the \textbf{spectrum} of $R$.
+
+\begin{theorem}
+    If $S$ is a multiplicative subset of a ring $R$ which is disjoint from an ideal $I$ of $R$, then there exists a prime ideal $P$ which is maximal in the set of all ideals that are disjoint from $S$ and containing $I$.
+\end{theorem}
+\begin{sketch}
+By Zorn's lemma we can take a maximal in the set of all ideals which contain $I$. Then assume $AB\subseteq P$ but $A\nsubseteq P$ and $B \nsubseteq P$, then prove the theorem by contradiction.
+\end{sketch}
+
+\begin{theorem}
+    Let $K$ be a subring of a commutative ring $R$. If $P_1, P_2, \ldots, P_n$ are prime ideals of $R$ such that $K \subseteq \bigcup_i P_i$, then $K \subseteq P_i$ for some $i$.
+\end{theorem}
+\begin{sketch}
+    Prove by contradiction. For each $i$ there exists $a_{i} \in K-\bigcup_{j\neq i}P_j$, then $a_{i} \in P_i$. Consider the element $a_{1}+a_{2}a_{3}\cdots a_{n}$.
+\end{sketch}
+
+\begin{definition}
+    Let $I$ be an ideal in a commutative ring $R$. The \textbf{radical} of $I$, denoted $\Rad I $, is the ideal $\cap P$, where the intersection is taken over all prime ideals containing $I$. If the set of prime ideals containing $I$ is empty, then $\Rad I$ is defined to be $R$.
+\end{definition}
+
+There is an equivalent definition of radical.
+
+\begin{theorem}
+    If $I$ is an ideal of a commutative ring $R$, then $\Rad I = \{ r \in R  \mid r^n \in I \text{ for some } n>0 \}$. 
+\end{theorem}
+
+The radical of an ideal has some properties.
+
+\begin{proposition}
+    If $I_1, I_2, \ldots, I_n$ are ideals in a commutative ring $R$, then:
+
+    (i) $\Rad (\Rad I)=\Rad I$;
+
+    (ii) $\Rad I_{1}I_{2}\cdots I_{n}=\Rad (\bigcap_{i=1}^n I_i )=\bigcap_{i=1}^n I_i$.
+\end{proposition}
+
+\begin{definition}
+    An ideal $Q(\neq R)$ in a commutative ring $R$ is \textbf{primary} if for any $a,b \in R$:
+    \begin{equation*}
+        ab \in Q \text{ and } a \notin Q \quad \Rightarrow \quad b^n \in Q \text{ for some } n>0.
+    \end{equation*} 
+\end{definition}
+
+\begin{theorem}
+    $Q(\neq R)$ is an ideal of a commutative ring $R$. $Q$ is primary in $R$ iff all zero divisors of $\faktor{R}{Q}$ are nilpotent.
+\end{theorem}
+\begin{proof}
+    For any zero divisor $r+Q$ of $\faktor{R}{Q}$, there exists $r'+Q\neq 0$ such that $(r+Q)(r'+Q)=0$ whence $rr'\in Q$. Since $r'\neq Q$ and $Q$ is primary, then $r^n \in Q$ for some $n>0$. Thus $(r+Q)^n=0$ and $r+Q$ is nilpotent.
+
+    If all zero divisors in $\faktor{R}{Q}$ are nilpotent, for any $a,b \in R$ and $ab \in Q$ such that $a \notin Q$, there is $(a+Q)(b+Q)=0$ and then $b+Q$ is a zero divisor in $\faktor{R}{Q}$. Thus $(b+Q)^n=0$ for some $n$ and $b^n \in Q$. This shows that $Q$ is primary.
+\end{proof}
+
+\begin{example}
+    If $F$ is a field, then the ideal $(x,y)$ is maximal in $F[x,y]$ since $\faktor{F[x,y]}{(x,y)} \simeq F$ is a field. Thus $(x,y)$ is also prime. Furthermore $(x,y)^2=(x^2,xy,y^2)\subsetneq (x^2,y) \subsetneq (x,y)$. 
+    
+    Since $\faktor{F[x,y]}{(x^2,y)} \simeq \faktor{F[x,y]/(y)}{(x^2,y)/(y)} \simeq \faktor{F[x]}{(x^2)}$, then for any $a+bx, a'+b'x \in \faktor{F[x]}{(x^2)}$ such that $(a+bx)(a'+b'x)=0$, there is $(a+bx)(a'+b'x)=aa'+ab'x+a'bx+bb'x^2=aa'+(ab'+a'b)x=0$ whence $aa'=0,ab'+a'b=0$. Either $a=0$ or $a'=0$ shows that $a+bx$ or $a'+b'x$ is nilpotent. Thus by the theorem above, $(x^2,y)$ is primary in $F[x,y]$. 
+
+    Suppose there is another prime ideal $P$ that contains $(x^2,y)$, then $x^2 \in P$ and $x \in P$. Thus $(x,y) \subseteq P$ and since $(x,y)$ is maximal, $(x,y)=P$. This shows $(x,y)$ is the only prime ideal that contains $(x^2,y)$. Hence if there is a prime ideal $P$ such that $(x^2,y)=P^k$, then $\Rad (x^2,y)=\Rad P^k=\Rad P$ but $\Rad (x^2,y)=(x,y)$ ($Q \subseteq \Rad Q$). Thus $P=(x,y)$ and $(x^2,y)$ is not a power of some prime ideal.
+\end{example}
+
+\begin{theorem}
+    If $Q$ is a primary ideal in a commutative ring $R$ with identity, then $\Rad Q$ is a prime ideal.
+\end{theorem}
+\begin{remark}
+    If $Q$ is a primary ideal in a commutative ring $R$, then the radical $P$ of $Q$ is called the \textbf{associated prime ideal} of $Q$. One says that $Q$ is a \textbf{primary ideal belonging to the prime $P$} or that $Q$ is \textbf{primary for $P$} or that $Q$ is \textbf{$P$-primary}. For a given primary ideal $Q$, the associated prime ideal $\operatorname{Rad} Q$ is clearly unique. However, a given prime ideal $P$ may be the associated prime of several different primary ideals.
+\end{remark}
+
+\begin{theorem}
+    Let $Q$ and $P$ be ideals in a commutative ring $R$ with identity. Then $Q$ is primary for $P$ iff:
+
+    (i) $Q \subseteq P \subseteq \Rad Q$ and;
+
+    (ii) if $ab \in Q$ and $a \notin Q$, then $b \in P$.
+\end{theorem}
+
+\begin{theorem}
+    If $Q_1, Q_2, \ldots, Q_n$ are primary ideals in a commutative ring $R$ with identity, all of which are primary for the prime ideal $P$, then $\bigcap_{i=1} ^n Q_i$ is also a primary ideal belonging to $P$.
+\end{theorem}
+\begin{sketch}
+    Use the Theorem 6.15.
+\end{sketch}
 
 
 

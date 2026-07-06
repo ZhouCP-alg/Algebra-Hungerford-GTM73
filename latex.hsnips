@@ -443,6 +443,10 @@ snippet sse "subseteq" iAm
 \subseteq
 endsnippet
 
+snippet ssne "subsetneq" iAm
+\subsetneq
+endsnippet
+
 snippet sqs "sqsubset" iAm
 \sqsubseteq
 endsnippet
@@ -671,11 +675,11 @@ snippet `dd` "dd" iAm
 endsnippet
 
 priority 300
-snippet buu "bigcup" im
+snippet bcu "bigcup" im
 \bigcup_{${1:i \in ${2: I}}} $0
 endsnippet
 
-snippet bnn "bigcap" im
+snippet bca "bigcap" im
 \bigcap_{${1:i \in ${2: I}}} $0
 endsnippet
 
